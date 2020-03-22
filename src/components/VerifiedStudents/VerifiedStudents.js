@@ -12,7 +12,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import EditIcon from '@material-ui/icons/Edit';
-import Pagination from '@material-ui/lab/Pagination';
+import TablePagination from '@material-ui/core/TablePagination';
 
 
 class VerifiedStudents extends React.Component {
@@ -72,7 +72,7 @@ class VerifiedStudents extends React.Component {
                 {
                     name: "Timmy Timmyson",
                     shortId: "98765",
-                    longId: '3938357835',
+                    longId: '338357835',
                     grade: "12"
                 },
                 {
@@ -111,13 +111,54 @@ class VerifiedStudents extends React.Component {
                     longId: '223435534',
                     grade: "12"
                 },
+                {
+                    name: "Karim Benyassine",
+                    shortId: "12345",
+                    longId: '240012452',
+                    grade: "12"
+                },
+                {
+                    name: "Alex Rea",
+                    shortId: "67890",
+                    longId: '945982334',
+                    grade: "12"
+                },
+                {
+                    name: "Saim Ahmad",
+                    shortId: "94735",
+                    longId: '697711443',
+                    grade: "12"
+                },
+                {
+                    name: "Jay Ni",
+                    shortId: "67452",
+                    longId: '167379456',
+                    grade: "12"
+                },
+                {
+                    name: "Alex Pham",
+                    shortId: "72572",
+                    longId: '834223562',
+                    grade: "12"
+                },
+                {
+                    name: "Shehzad Mansuri",
+                    shortId: "08345",
+                    longId: '447237934',
+                    grade: "12"
+                },
+                {
+                    name: "Vincent Le",
+                    shortId: "07684",
+                    longId: '346583958',
+                    grade: "12"
+                },
             ],
             search:'',
-            page: 1,
-            setPage: 1
+            page: 0,
         }
 
-        this.handleChange = this.handleChange.bind(this);
+        this.handleChangePage = this.handleChangePage.bind(this);
       }
 
     updateSearch=(event)=>{
@@ -125,8 +166,8 @@ class VerifiedStudents extends React.Component {
             40)})
     }
     
-    handleChange = (event) => {
-        this.setState({setPage: event.target.value})
+    handleChangePage = (event, newPage) => {
+        this.setState({page: newPage})
       };
 
     renderDash(){
@@ -155,7 +196,7 @@ class VerifiedStudents extends React.Component {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {filteredStudents.map(student => (
+                                {filteredStudents.slice(this.state.page * 15, this.state.page * 15 + 15).map(student => (
                                     <TableRow>
                                     <TableCell>
                                         {student.name}
@@ -169,7 +210,13 @@ class VerifiedStudents extends React.Component {
                             </TableBody>
                         </Table>
                         </TableContainer>
-                        <Pagination style={{position:'relative', left:'770px', top:"10px"}} count={10} />
+                        <TablePagination
+                        style={{position: 'relative', right: "920px"}}
+                        count={this.state.students.length} 
+                        rowsPerPage={15}
+                        page={this.state.page}
+                        component="div"
+                        onChangePage={this.handleChangePage}/>
                     </Card>
             </div>
         )
