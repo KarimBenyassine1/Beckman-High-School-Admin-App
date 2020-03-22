@@ -82,7 +82,7 @@ class Login extends React.Component {
                 validators={['required']}
                 errorMessages={['this field is required']} 
                 style={{position: 'relative', left: "5px", top: '35px', width: '320px', height: '20px'}} />
-              <Button type="submit" variant="contained" color="primary" className="button" href="/dashboard">
+              <Button type="submit" variant="contained" color="primary" className="button" href="/verified-students">
                 Sign In
               </Button>
               <a href="/reset-password" className="forgot">Forgot Password?</a>

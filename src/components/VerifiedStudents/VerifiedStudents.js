@@ -1,7 +1,7 @@
 import React from 'react';
 import Menu from "../Menu"
 import Card from '@material-ui/core/Card';
-import "./Dashboard.css"
+import "./VerifiedStudents.css"
 import Button from '@material-ui/core/Button';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import TextField from '@material-ui/core/TextField';
@@ -15,7 +15,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import Pagination from '@material-ui/lab/Pagination';
 
 
-class Dashboard extends React.Component {
+class VerifiedStudents extends React.Component {
     constructor(props){
         super(props)
     
@@ -188,4 +188,4 @@ class Dashboard extends React.Component {
 
 }
 
-export default Dashboard;
+export default VerifiedStudents;
