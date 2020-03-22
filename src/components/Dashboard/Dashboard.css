@@ -1,0 +1,26 @@
+.verifycard{
+    position:relative;
+    left:260px;
+    top: 35px;
+    width: 1120px;
+    height: 1310px;
+}
+.backgroundDash{
+    width:1430px;
+    height: 1470px;
+    background: rgb(219,17,17);
+    background: linear-gradient(0deg, rgba(219,17,17,1) 0%, rgba(177,31,31,1) 24%, rgba(102,7,152,1) 49%, rgba(0,125,255,1) 100%);
+}
+
+.p{
+    font-size: 25px;
+    position: relative;
+    left: 20px;
+    bottom:5px
+}
+
+.text{
+    position: relative;
+    left: 895px;
+    width: 200px;
+}
