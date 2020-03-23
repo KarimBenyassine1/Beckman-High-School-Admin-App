@@ -15,7 +15,7 @@ export default class Menu extends React.Component{
                     <IconButton edge="start" style={{color:grey[50]}} aria-label="menu">
                         <MenuIcon />
                     </IconButton>
-                    <Typography variant="h6" style={{color:grey[50]}} >
+                    <Typography variant="h6" style={{color:grey[50], fontSize:"25px"}} >
                         Beckman Admin
                     </Typography>
                     </Toolbar>

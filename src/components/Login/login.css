@@ -12,21 +12,22 @@
   
   .card{
     width: 350px;
-    height: 400px;
+    height: 410px;
   }
   
   .button{
     position: relative;
-    left: 127px;
-    top: 95px;
+    left: 20px;
+    top: 100px;
   }
   
   .forgot{
     text-decoration: none;
     color: gray;
     position: relative;
-    left: 20px;
-    top: 135px;
+    left: 217px;
+    top: 60px;
+    font-size:13px;
     transition: all 0.3s ease 0s;
   }
   
@@ -34,3 +35,6 @@
     color:black;
   }
   
+  .p{
+    
+  }

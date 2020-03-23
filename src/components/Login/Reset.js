@@ -5,17 +5,16 @@ import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import TextField from '@material-ui/core/TextField'
 
 class Reset extends React.Component {
     constructor(props){
       super(props)
   
       this.state = {
-        user: {
-            email: '',
-            ResetPassword: '',
-            confirmedPassword: '',
-        },
+        username: '',
+        password: '',
+        repeatPassword: '',
         clickedSubmit:false,
       }
       
@@ -23,23 +22,44 @@ class Reset extends React.Component {
       this.handleSubmit = this.handleSubmit.bind(this);
       this.handleChange = this.handleChange.bind(this);
     }
-  
-  
+    
+
+    componentDidMount() {
+      // custom rule will have name 'isPasswordMatch'
+      ValidatorForm.addValidationRule('isPasswordMatch', (value) => {
+          if (value !== this.state.password) {
+              return false;
+          }
+          return true;
+      });
+    }
+
+    componentWillUnmount() {
+      // remove rule when it is not needed
+      ValidatorForm.removeValidationRule('isPasswordMatch');
+    }
+
+    emptyOrNot=()=>{
+      if(this.state.username!== ''&&this.state.password!==''&&this.state.repeatPassword){
+        return false;
+      }else{
+        return true;
+      }
+    }
+
+
     handleChange = (event) => {
-        const { user } = this.state;
-        user[event.target.name] = event.target.value;
-        this.setState({ user });
+      this.setState({[event.target.name]: event.target.value});
     }
   
     handleSubmit = (event) => {
-      const { email, ResetPassword, confirmedPassword}=this.state;
+      const { username, password}=this.state;
       this.setState({clickedSubmit: true});
   
   
       const obj = {
-        userEmail: email,
-        password: ResetPassword,
-        newPassword: confirmedPassword
+        userEmail: username,
+        loginPassword: password,
       };  
   
   
@@ -47,14 +67,13 @@ class Reset extends React.Component {
     }
   
     renderReset(){
-        const {user}=this.state;
       return(
         <div className="background">
           <Box
           boxShadow={3}
           >
             <Card className="card2">
-                <a  href="/" style={{color:'black'}}> <ArrowBackIcon style={{position:"relative", bottom:"130px", left:"2px"}}/></a>
+              <a  href="/" style={{color:'black'}}> <ArrowBackIcon style={{position:"relative", bottom:"130px", left:"2px"}}/></a>
               <img src="https://upload.wikimedia.org/wikipedia/commons/0/03/Bpatriots_1.jpg" alt="BHS Logo" style={{paddingLeft:'57px'}} height="175" width="175"/>
               <ValidatorForm
                   ref="form"
@@ -63,29 +82,28 @@ class Reset extends React.Component {
               >
                 <TextValidator
                   label="Email"
+                  onChange={this.handleChange}
                   name="username"
-                  value={user.email}
-                  validators={['required']}
-                  errorMessages={['this field is required']} 
+                  value={this.state.username}
                   style={{position: 'relative', left: '5px', bottom: '15px', width: '320px', height: '20px'}}
-                  />
+                />
                 <TextValidator
                   type="password" 
-                  label="Password"
+                  label="New Password"
+                  onChange={this.handleChange}
                   name="password"
-                  value={user.ResetPassword}
-                  validators={['required']}
-                  errorMessages={['this field is required']} 
+                  value={this.state.password}
                   style={{position: 'relative', left: "5px", top: '35px', width: '320px', height: '20px'}} />
                 <TextValidator
                   type="password" 
                   label="Repeat Password"
+                  onChange={this.handleChange}
                   name="repeatPassword"
-                  value={user.confirmedPassword}
-                  validators={['required']}
-                  errorMessages={['this field is required']} 
+                  value={this.state.repeatPassword}
+                  validators={['isPasswordMatch']}
+                  errorMessages={['password mismatch']}
                   style={{position: 'relative', left: "5px", top: '90px', width: '320px', height: '20px'}} />
-                <Button type="submit" variant="contained" color="primary" className="reset">
+                <Button type="submit" variant="contained" disabled={this.emptyOrNot()} color="primary" className="reset">
                   Submit
                 </Button>
               </ValidatorForm>
