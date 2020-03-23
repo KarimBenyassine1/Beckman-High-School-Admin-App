@@ -36,12 +36,6 @@ class Login extends React.Component {
     const {username, password}=this.state;
     this.setState({clickedSubmit: true});
 
-      if(username!=="Karim"&&password!=="1234"){
-        this.setState({error: true});
-      }else{
-        alert("correct")
-      }
-
     const obj = {
       loginName: username,
       loginPassword: password
@@ -50,6 +44,15 @@ class Login extends React.Component {
 
     event.preventDefault();
   }
+
+  emptyOrNot=()=>{
+    if(this.state.username!== ''&&this.state.password!==''){
+      return false;
+    }else{
+      return true;
+    }
+  }
+
 
   renderLogin(){
     return(
@@ -82,10 +85,11 @@ class Login extends React.Component {
                 validators={['required']}
                 errorMessages={['this field is required']} 
                 style={{position: 'relative', left: "5px", top: '35px', width: '320px', height: '20px'}} />
-              <Button type="submit" variant="contained" color="primary" className="button" href="/verified-students">
+              <a href="/reset-password" className="forgot">Forgot Password?</a>
+              <Button type="submit" variant="contained" color="primary" disabled={this.emptyOrNot()} className="button" href="/verified-students">
                 Sign In
               </Button>
-              <a href="/reset-password" className="forgot">Forgot Password?</a>
+              <p style={{fontSize:"16px", position:'relative', top: '100px', left: '50px', color: 'gray'}}>Not Registered?<span><a style={{color:'blue'}}> Create an account</a></span></p>
             </ValidatorForm>
           </Card>
         </Box>

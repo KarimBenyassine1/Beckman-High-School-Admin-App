@@ -109,49 +109,49 @@ class VerifiedStudents extends React.Component {
                 {
                     name: "Tss Tsson",
                     shortId: "85866",
-                    longId: '223435534',
+                    longId: '734353767',
                     grade: "12"
                 },
                 {
-                    name: "Karim Benyassine",
-                    shortId: "12345",
-                    longId: '240012452',
+                    name: "Ahhh Ahhh",
+                    shortId: "63457",
+                    longId: '834674457',
                     grade: "12"
                 },
                 {
-                    name: "Alex Rea",
-                    shortId: "67890",
-                    longId: '945982334',
+                    name: "Ehheehhh",
+                    shortId: "84534",
+                    longId: '987654736',
                     grade: "12"
                 },
                 {
-                    name: "Saim Ahmad",
-                    shortId: "94735",
-                    longId: '697711443',
+                    name: "Oohohhohh",
+                    shortId: "75234",
+                    longId: '964683569',
                     grade: "12"
                 },
                 {
-                    name: "Jay Ni",
-                    shortId: "67452",
+                    name: "Reeeeee",
+                    shortId: "23456",
                     longId: '167379456',
                     grade: "12"
                 },
                 {
-                    name: "Alex Pham",
-                    shortId: "72572",
-                    longId: '834223562',
+                    name: "Mannnnnn",
+                    shortId: "96457",
+                    longId: '123987685',
                     grade: "12"
                 },
                 {
-                    name: "Shehzad Mansuri",
-                    shortId: "08345",
+                    name: "Boiii",
+                    shortId: "09876",
                     longId: '447237934',
                     grade: "12"
                 },
                 {
-                    name: "Vincent Le",
-                    shortId: "07684",
-                    longId: '346583958',
+                    name: "Duuuudde",
+                    shortId: "35785",
+                    longId: '387657946',
                     grade: "12"
                 },
             ],
@@ -178,6 +178,7 @@ class VerifiedStudents extends React.Component {
                 student.shortId.indexOf(this.state.search) !==-1;
             }
         );
+
 
         return(
             <div className="backgroundDash">
