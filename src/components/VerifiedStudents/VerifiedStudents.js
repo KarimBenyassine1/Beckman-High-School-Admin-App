@@ -1,5 +1,6 @@
 import React from 'react';
 import Menu from "../Menu"
+import Sidebar from "../SideBar/SideBar";
 import Card from '@material-ui/core/Card';
 import "./VerifiedStudents.css"
 import Button from '@material-ui/core/Button';
@@ -180,7 +181,8 @@ class VerifiedStudents extends React.Component {
 
         return(
             <div className="backgroundDash">
-                <Menu /> 
+                <Menu />
+                <Sidebar />
                     <Card className="verifycard">
                         <p className='p'>Verified Students <span> <Button onClick={() => window.location.reload(false)} color="primary" style={{position:"relative", left:"775px"}}><RefreshIcon color="primary" />Refresh</Button> </span> </p>
                         <TextField id="standard-basic" label="Search Name or Short ID" value={this.state.search} onChange={this.updateSearch.bind(this)} className="text"/>
