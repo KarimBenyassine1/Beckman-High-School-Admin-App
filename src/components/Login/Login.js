@@ -60,7 +60,7 @@ class Login extends React.Component {
         <Box
         boxShadow={3}
         >
-          <Card className="card">
+          <Card style={{width: "350px", height: "410px"}}>
             <img src="https://upload.wikimedia.org/wikipedia/commons/0/03/Bpatriots_1.jpg" alt="BHS Logo" style={{paddingLeft:'83px'}} height="175" width="175"/>
             <ValidatorForm
                 ref="form"
@@ -86,10 +86,10 @@ class Login extends React.Component {
                 errorMessages={['this field is required']} 
                 style={{position: 'relative', left: "5px", top: '35px', width: '320px', height: '20px'}} />
               <a href="/reset-password" className="forgot">Forgot Password?</a>
-              <Button type="submit" variant="contained" color="primary" disabled={this.emptyOrNot()} className="button" href="/verified-students">
+              <Button type="submit" variant="contained" color="primary" disabled={this.emptyOrNot()} className="button" href="/dashboard">
                 Sign In
               </Button>
-              <p style={{fontSize:"16px", position:'relative', top: '100px', left: '50px', color: 'gray'}}>Not Registered?<span><a style={{color:'blue'}}> Create an account</a></span></p>
+              <p style={{fontSize:"16px", position:'relative', top: '100px', left: '50px', color: 'gray'}}>Not Registered?<span><a href ="/register" style={{color:'blue', textDecoration: 'none'}}> Create an account</a></span></p>
             </ValidatorForm>
           </Card>
         </Box>

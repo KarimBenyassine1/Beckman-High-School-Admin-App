@@ -5,7 +5,6 @@ import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import TextField from '@material-ui/core/TextField'
 
 class Reset extends React.Component {
     constructor(props){
@@ -39,12 +38,14 @@ class Reset extends React.Component {
       ValidatorForm.removeValidationRule('isPasswordMatch');
     }
 
-    emptyOrNot=()=>{
-      if(this.state.username!== ''&&this.state.password!==''&&this.state.repeatPassword){
+    validatorSubmit=()=>{
+      if(this.state.username!== ''&&this.state.password!==''&&this.state.repeatPassword!==''&&this.state.password===this.state.repeatPassword){
         return false;
       }else{
         return true;
       }
+
+
     }
 
 
@@ -103,7 +104,7 @@ class Reset extends React.Component {
                   validators={['isPasswordMatch']}
                   errorMessages={['password mismatch']}
                   style={{position: 'relative', left: "5px", top: '90px', width: '320px', height: '20px'}} />
-                <Button type="submit" variant="contained" disabled={this.emptyOrNot()} color="primary" className="reset">
+                <Button type="submit" variant="contained" disabled={this.validatorSubmit()} color="primary" className="reset">
                   Submit
                 </Button>
               </ValidatorForm>

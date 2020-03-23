@@ -146,7 +146,7 @@ class SimpleCard extends Component {
                     <CardContent>
                         <Typography className="2" color="textSecondary" gutterBottom>
                             Register Your Account
-        </Typography>
+                        </Typography>
                         <form className="text-field" onSubmit={this.handleSubmit}>
                             <TextField
                                 id="standard-select-currency"
@@ -174,8 +174,8 @@ class SimpleCard extends Component {
                             <TextField id="standard-basic" label="Confirm Password" name="confirmpassword" type="password" fullWidth={true} onChange={this.handleChange} noValidate />
                             {errors.confirmpassword.length > 0 && <span className="error" > {errors.confirmpassword} </span>}
                             <CardActions>
-                                <Button size="small" type="submit"  > Register </Button>
-                                <Button size="small" href='/'> Already have an account? </Button>
+                                <Button size="small" variant="contained" color="primary" type="submit" style={{postion:'relative', right: '8px', top:'10px'}}> Register </Button>
+                                <Button size="small" variant="contained" color="primary" style={{postion:'relative', top:'10px'}} href='/'> Already have an account? </Button>
                             </CardActions>
                         </form>
                     </CardContent>

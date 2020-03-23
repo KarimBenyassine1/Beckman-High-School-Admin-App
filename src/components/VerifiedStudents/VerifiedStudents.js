@@ -185,7 +185,7 @@ class VerifiedStudents extends React.Component {
                 <Menu />
                 <Sidebar />
                     <Card className="verifycard">
-                        <p className='p'>Verified Students <span> <Button onClick={() => window.location.reload(false)} color="primary" style={{position:"relative", left:"775px"}}><RefreshIcon color="primary" />Refresh</Button> </span> </p>
+                        <p className='p'>Verified Students <span> <Button onClick={() => window.location.reload(false)} color="primary" style={{position:"relative", left:"637px"}}><RefreshIcon color="primary" />Refresh</Button> </span> </p>
                         <TextField id="standard-basic" label="Search Name or Short ID" value={this.state.search} onChange={this.updateSearch.bind(this)} className="text"/>
                         <TableContainer style={{paddingTop:'30px'}}>
                         <Table aria-label="simple table">
@@ -214,7 +214,7 @@ class VerifiedStudents extends React.Component {
                         </Table>
                         </TableContainer>
                         <TablePagination
-                        style={{position: 'relative', right: "920px"}}
+                        style={{position: 'relative', right: "810px"}}
                         count={this.state.students.length} 
                         rowsPerPage={15}
                         page={this.state.page}
