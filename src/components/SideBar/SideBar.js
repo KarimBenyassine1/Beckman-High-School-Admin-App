@@ -25,7 +25,6 @@ export default class SideBar extends React.Component {
                     >
                         <MenuItem href='/dashboard'> Pending Students </MenuItem>
                         <MenuItem href='/verified-students'> Verified Students </MenuItem>
-                        <MenuItem> Reviews </MenuItem>
                         <MenuItem href='/'> Logout </MenuItem>
                     </Menu>
                 </div>

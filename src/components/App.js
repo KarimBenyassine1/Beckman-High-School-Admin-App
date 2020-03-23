@@ -4,8 +4,7 @@ import Login from '../components/Login/Login';
 import Reset from '../components/Login/Reset';
 import VerifiedStudents from "../components/VerifiedStudents/VerifiedStudents";
 import Dashboard from "../components/Dashboard/Dashboard";
-import Sidebar from "../components/SideBar/SideBar";
-import Menu from "../components/Menu";
+import Registration from "../components/Registration/Registration";
 
 
 const App = () => (
@@ -14,6 +13,7 @@ const App = () => (
       <Switch>
         <Route path="/" component={Login} exact />
         <Route path="/reset-password" component={Reset} exact />
+        <Route path="/register" component={Registration} exact />
         <Route path="/dashboard" component={Dashboard} exact />
         <Route path="/verified-students" component={VerifiedStudents} exact />
       </Switch>
