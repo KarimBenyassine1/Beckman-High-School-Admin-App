@@ -1,16 +1,12 @@
 .verifycard{
     position:relative;
-    left:260px;
+    left: 14vw;
     top: 35px;
-    width: 1120px;
+    width: 70vw;
     height: 1310px;
 }
 .backgroundDash{
-<<<<<<< HEAD
     width: 100vw;
-=======
-    width:100vw;
->>>>>>> 9dbf75e46e6cd33e719265500511ed6a031126f7
     height: 1470px;
     background: rgb(219,17,17);
     background: linear-gradient(0deg, rgba(219,17,17,1) 0%, rgba(177,31,31,1) 24%, rgba(102,7,152,1) 49%, rgba(0,125,255,1) 100%);

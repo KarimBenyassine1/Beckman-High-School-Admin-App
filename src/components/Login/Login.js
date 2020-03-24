@@ -21,7 +21,7 @@ class Login extends React.Component {
       users: []
     }
     
-
+    
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
@@ -89,7 +89,7 @@ class Login extends React.Component {
               <Button type="submit" variant="contained" color="primary" disabled={this.emptyOrNot()} className="button" href="/verified-students">
                 Sign In
               </Button>
-              <p style={{fontSize:"16px", position:'relative', top: '100px', left: '50px', color: 'gray'}}>Not Registered?<span><a style={{color:'blue'}}> Create an account</a></span></p>
+              <p style={{fontSize:"16px", position:'relative', top: '100px', left: '50px', color: 'gray'}}>Not Registered?<span><a style={{color:'blue'}} href='/register'> Create an account</a></span></p>
             </ValidatorForm>
           </Card>
         </Box>
