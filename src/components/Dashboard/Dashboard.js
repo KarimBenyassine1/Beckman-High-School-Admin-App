@@ -7,21 +7,42 @@ import IntroductionCard from './IntroductionCard.js';
 import './Dashboard.css'
 import Menu from "../Menu"
 import Sidebar from "../SideBar/SideBar";
+import PendingAcounts from './PendingAccounts';
 
 
 class Dashboard extends Component {
-    state = {};
+    constructor(props) {
+        super(props)
+        this.state = {
+            pendingAccounts: [
+                {
+                    name: "Saim Ahmad",
+                    shortId: "12345",
+                    longId: "12345678",
+                    grade: "12",
+                    id: '1'
+                },
+                {
+                    name: "Not Saim",
+                    shortId: "54321",
+                    longId: "87654321",
+                    grade: "9",
+                    id: '2'
+                }
+            ],
+            numPending: 2,
+        }
+    }
 
     render() {
-        const { } = this.state;
         return (
             <MuiThemeProvider>
-                <div> 
+                <div className="dash-background">
                     <Menu />
                     <Sidebar />
-                        <IntroductionCard />
-                    <div className="welcome-card">
-                        pending review thing
+                    <IntroductionCard />
+                    <div className="right-adjust">
+                        <PendingAcounts numPending={this.state.numPending} accounts={this.state.pendingAccounts} />
                     </div>
                 </div>
             </MuiThemeProvider>

@@ -1,9 +1,16 @@
 import React from 'react';
 import { Card, CardTitle } from 'material-ui/Card';
 import { List, ListItem } from 'material-ui/List';
-import CommentIcon from 'material-ui/svg-icons/communication/comment';
-import Avatar from 'material-ui/Avatar';
-import { Link } from 'react-router-dom';
+import TableBody from '@material-ui/core/TableBody';
+import TableContainer from '@material-ui/core/TableContainer';
+import Table from '@material-ui/core/Table';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import CloseIcon from '@material-ui/icons/Close';
+import VerifiedUserIcon from '@material-ui/icons/VerifiedUser';
+import Button from '@material-ui/core/Button';
+import './Dashboard.css'
 
 const styles = {
     titleLink: { textDecoration: 'none', color: '#000' },
@@ -13,21 +20,41 @@ const styles = {
 
 const location = { pathname: 'reviews', query: { filter: JSON.stringify({ status: 'pending' }) } };
 
-export default ({ reviews = [], customers = {}, nb, translate }) => (
-    <Card style={styles.card}>
-        <CommentIcon style={styles.icon} />
-        <CardTitle title={<Link to={location} style={styles.titleLink}>{nb}</Link>} subtitle={translate('pos.dashboard.pending_reviews')} />
-        <List>
-            {reviews.map(record =>
-                <ListItem
-                    key={record.id}
-                    href={`#/reviews/${record.id}`}
-                    primaryText={'insert student name'}
-                    secondaryText={record.comment}
-                    leftAvatar={customers[record.customer_id] ? <Avatar src={`${customers[record.customer_id].avatar}?size=32x32`} /> : <Avatar />}
-                />
-            )}
-        </List>
+function handleVerify() {
+    console.log("verify");
+}
+
+function handleDecline() {
+    console.log("decline");
+}
+
+export default ({ accounts = [], numPending }) => (
+    <Card className="pending-card">
+        <CardTitle title={numPending} subtitle="Pending Accounts" />
+        <TableContainer style={{ paddingTop: '30px' }}>
+            <Table >
+                <TableHead>
+                    <TableRow>
+                        <TableCell>NAME</TableCell>
+                        <TableCell align="right">SHORT ID</TableCell>
+                        <TableCell align="right">LONG ID</TableCell>
+                        <TableCell align="right">GRADE</TableCell>
+                        <TableCell align="right">ACCEPT/DECLINE</TableCell>
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    {accounts.map(student =>
+                        <TableRow>
+                            <TableCell> {student.name} </TableCell>
+                            <TableCell align="right" > {student.shortId} </TableCell>
+                            <TableCell align="right" > {student.longId} </TableCell>
+                            <TableCell align="right" > {student.grade} </TableCell>
+                            <TableCell align="right" > <Button style={{width: '20px'}} onClick={handleVerify}> <VerifiedUserIcon /> </Button> <Button onClick={handleDecline}> <CloseIcon /> </Button></TableCell>
+                        </TableRow>
+                    )}
+                </TableBody>
+            </Table>
+        </TableContainer>
     </Card>
 );
 
