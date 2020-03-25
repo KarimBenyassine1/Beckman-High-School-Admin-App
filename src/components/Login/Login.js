@@ -3,6 +3,7 @@ import './login.css';
 import Card from '@material-ui/core/Card';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
+import TextField from '@material-ui/core/TextField';
 import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 import Alerts from "../Login/alert";
 
@@ -17,8 +18,17 @@ class Login extends React.Component {
       password: '',
       loginStatus:'IS_LOGGED',
       clickedSubmit:false,
-      error: false,
-      users: []
+      errors:{
+        username: '',
+         password: '',
+      },
+      users: [
+        { 
+          id:1,
+          loginUser: "Karim",
+          loginPass: "1234"
+        }
+      ]
     }
     
 
@@ -26,7 +36,13 @@ class Login extends React.Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
-  
+  validateForm = e => {
+    let valid = true;
+    Object.values(e).forEach(
+        (val) => val.length > 0 && (valid = false)
+    );
+    return valid;
+}
 
   handleChange = (event) => {
     this.setState({[event.target.name]: event.target.value});
@@ -41,19 +57,42 @@ class Login extends React.Component {
       loginPassword: password
     };  
 
+    if (this.validateForm(this.state.errors)) {
+      //do all the login stuff
+
+      /*
+            axios.post('http://localhost:6000/register', obj)
+              .then(res => console.log(res))
+              .catch(err => console.log(err));
+            //console.log(this.state.status);
+      */
+      if (this.state.status) {
+          alert("login successful")
+      } else {
+          alert("an instance of your username already exist in the system. Please try logging in again.")
+      }
+  }
 
     event.preventDefault();
   }
 
+  
+  
+
+
+
   emptyOrNot=()=>{
     if(this.state.username!== ''&&this.state.password!==''){
+      if(this.state.users.some(user=>user.loginUser!==this.state.username)){
+        return true;
+      }
       return false;
     }else{
       return true;
     }
   }
 
-
+  
   renderLogin(){
     return(
       <div className="background">
@@ -62,35 +101,31 @@ class Login extends React.Component {
         >
           <Card style={{width: "350px", height: "410px"}}>
             <img src="https://upload.wikimedia.org/wikipedia/commons/0/03/Bpatriots_1.jpg" alt="BHS Logo" style={{paddingLeft:'83px'}} height="175" width="175"/>
-            <ValidatorForm
+            <form
                 ref="form"
                 onSubmit={this.handleSubmit}
                 onError={errors => console.log(errors)}
             >
-              <TextValidator
+              <TextField
                 label="Username"
                 onChange={this.handleChange}
                 name="username"
                 value={this.state.username}
-                validators={['required']}
-                errorMessages={['this field is required']} 
                 style={{position: 'relative', left: '5px', bottom: '15px', width: '320px', height: '20px'}}
                 />
-              <TextValidator
+              <TextField
                 type="password" 
                 label="Password"
                 onChange={this.handleChange}
                 name="password"
                 value={this.state.password}
-                validators={['required']}
-                errorMessages={['this field is required']} 
                 style={{position: 'relative', left: "5px", top: '35px', width: '320px', height: '20px'}} />
               <a href="/reset-password" className="forgot">Forgot Password?</a>
               <Button type="submit" variant="contained" color="primary" disabled={this.emptyOrNot()} className="button" href="/dashboard">
                 Sign In
               </Button>
               <p style={{fontSize:"16px", position:'relative', top: '100px', left: '50px', color: 'gray'}}>Not Registered?<span><a href ="/register" style={{color:'blue', textDecoration: 'none'}}> Create an account</a></span></p>
-            </ValidatorForm>
+            </form>
           </Card>
         </Box>
       </div>
@@ -98,9 +133,7 @@ class Login extends React.Component {
   }
 
   render(){
-    const {error, clickedSubmit}=this.state;
-  
-    if(clickedSubmit){
+    /*if(clickedSubmit){
       if(error){
       return(
         <div>
@@ -108,8 +141,8 @@ class Login extends React.Component {
         </div>
       )
       }
-    }
-
+    }*/
+    
     return(
       <div>
         {this.renderLogin()}

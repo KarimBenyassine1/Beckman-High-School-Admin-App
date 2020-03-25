@@ -179,7 +179,7 @@ class VerifiedStudents extends React.Component {
             }
         );
 
-
+        
         return(
             <div className="backgroundDash">
                 <Menu />
@@ -215,7 +215,7 @@ class VerifiedStudents extends React.Component {
                         </TableContainer>
                         <TablePagination
                         style={{position: 'relative', right: "810px"}}
-                        count={this.state.students.length} 
+                        count={filteredStudents.length} 
                         rowsPerPage={15}
                         page={this.state.page}
                         component="div"

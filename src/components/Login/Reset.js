@@ -24,7 +24,6 @@ class Reset extends React.Component {
     
 
     componentDidMount() {
-      // custom rule will have name 'isPasswordMatch'
       ValidatorForm.addValidationRule('isPasswordMatch', (value) => {
           if (value !== this.state.password) {
               return false;
@@ -34,7 +33,6 @@ class Reset extends React.Component {
     }
 
     componentWillUnmount() {
-      // remove rule when it is not needed
       ValidatorForm.removeValidationRule('isPasswordMatch');
     }
 
