@@ -30,7 +30,7 @@ class Dashboard extends Component {
                     id: '2'
                 }
             ],
-            numPending: 2,
+            
         }
     }
 
@@ -42,7 +42,7 @@ class Dashboard extends Component {
                     <Sidebar />
                     <IntroductionCard />
                     <div className="right-adjust">
-                        <PendingAcounts numPending={this.state.numPending} accounts={this.state.pendingAccounts} />
+                        <PendingAcounts numPending={this.state.pendingAccounts.length} accounts={this.state.pendingAccounts} />
                     </div>
                 </div>
             </MuiThemeProvider>
