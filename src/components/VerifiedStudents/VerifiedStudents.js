@@ -17,9 +17,9 @@ import TablePagination from '@material-ui/core/TablePagination';
 
 
 class VerifiedStudents extends React.Component {
-    constructor(props){
+    constructor(props) {
         super(props)
-    
+
         this.state = {
             students: [
                 {
@@ -155,27 +155,29 @@ class VerifiedStudents extends React.Component {
                     grade: "12"
                 },
             ],
-            search:'',
+            search: '',
             page: 0,
         }
 
         this.handleChangePage = this.handleChangePage.bind(this);
-      }
-
-    updateSearch=(event)=>{
-        this.setState({search: event.target.value.substring(0, 
-            40)})
     }
-    
-    handleChangePage = (event, newPage) => {
-        this.setState({page: newPage})
-      };
 
-    renderDash(){
-        let filteredStudents=this.state.students.filter(
-            (student)=>{
-                return student.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 || 
-                student.shortId.indexOf(this.state.search) !==-1;
+    updateSearch = (event) => {
+        this.setState({
+            search: event.target.value.substr(0,
+                40)
+        })
+    }
+
+    handleChangePage = (event, newPage) => {
+        this.setState({ page: newPage })
+    };
+
+    renderDash() {
+        let filteredStudents = this.state.students.filter(
+            (student) => {
+                return student.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
+                    student.shortId.indexOf(this.state.search) !== -1;
             }
         );
 
@@ -184,10 +186,10 @@ class VerifiedStudents extends React.Component {
             <div className="backgroundDash">
                 <Menu />
                 <Sidebar />
-                    <Card className="verifycard">
-                        <p className='p'>Verified Students <span> <Button onClick={() => window.location.reload(false)} color="primary" style={{position:"relative", left:"637px"}}><RefreshIcon color="primary" />Refresh</Button> </span> </p>
-                        <TextField id="standard-basic" label="Search Name or Short ID" value={this.state.search} onChange={this.updateSearch.bind(this)} className="text"/>
-                        <TableContainer style={{paddingTop:'30px'}}>
+                <Card className="verifycard">
+                    <p className='p'>Verified Students <span> <Button onClick={() => window.location.reload(false)} color="primary" style={{ position: "relative", left: "637px" }}><RefreshIcon color="primary" />Refresh</Button> </span> </p>
+                    <TextField id="standard-basic" label="Search Name or Short ID" value={this.state.search} onChange={this.updateSearch.bind(this)} className="text" />
+                    <TableContainer style={{ paddingTop: '30px' }}>
                         <Table aria-label="simple table">
                             <TableHead>
                                 <TableRow>
@@ -201,13 +203,13 @@ class VerifiedStudents extends React.Component {
                             <TableBody>
                                 {filteredStudents.slice(this.state.page * 15, this.state.page * 15 + 15).map(student => (
                                     <TableRow>
-                                    <TableCell>
-                                        {student.name}
-                                    </TableCell>
-                                    <TableCell align="right">{student.shortId}</TableCell>
-                                    <TableCell align="right">{student.longId}</TableCell>
-                                    <TableCell align="right">{student.grade}</TableCell>
-                                    <TableCell align="right"><Button style={{position:'relative', left:'15px'}}><EditIcon color="primary"/></Button></TableCell>
+                                        <TableCell>
+                                            {student.name}
+                                        </TableCell>
+                                        <TableCell align="right">{student.shortId}</TableCell>
+                                        <TableCell align="right">{student.longId}</TableCell>
+                                        <TableCell align="right">{student.grade}</TableCell>
+                                        <TableCell align="right"><Button style={{ position: 'relative', left: '15px' }}><EditIcon color="primary" /></Button></TableCell>
                                     </TableRow>
                                 ))}
                             </TableBody>
@@ -219,15 +221,15 @@ class VerifiedStudents extends React.Component {
                         rowsPerPage={15}
                         page={this.state.page}
                         component="div"
-                        onChangePage={this.handleChangePage}/>
-                    </Card>
+                        onChangePage={this.handleChangePage} />
+                </Card>
             </div>
         )
     }
 
 
-    render(){
-        return(
+    render() {
+        return (
             <div>
                 {this.renderDash()}
             </div>

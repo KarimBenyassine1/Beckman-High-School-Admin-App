@@ -13,17 +13,17 @@ export default class SideBar extends React.Component {
     render() {
         return (
             <MuiThemeProvider>
-                <div className="main">
-                    <Menu
-                        id="simple-menu"
-                        open="true"
-                        className="main"
-                    >
-                        <MenuItem href='/dashboard'> Pending Students </MenuItem>
-                        <MenuItem href='/verified-students'> Verified Students </MenuItem>
-                        <MenuItem href='/'> Logout </MenuItem>
-                    </Menu>
-                </div>
+                    <div className="main">
+                        <Menu
+                            id="simple-menu"
+                            open="true"
+                            className="main"
+                        >
+                            <MenuItem href='/dashboard'> Pending Students </MenuItem>
+                            <MenuItem href='/verified-students'> Verified Students </MenuItem>
+                            <MenuItem href='/'> Logout </MenuItem>
+                        </Menu>
+                    </div>
             </MuiThemeProvider>
         )
     }
