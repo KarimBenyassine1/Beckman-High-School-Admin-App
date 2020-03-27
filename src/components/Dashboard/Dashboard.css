@@ -18,3 +18,15 @@
     position: relative;
     width: 70vw;
 }
+
+.filter{
+    position: relative;
+    width: 10.1vw;
+    left: 58vw;
+}
+
+.refresh{
+    position: relative; 
+    left: 56vw;
+    top: -3vw;
+}

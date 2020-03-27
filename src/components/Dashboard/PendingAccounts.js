@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, CardTitle } from 'material-ui/Card';
 import { List, ListItem } from 'material-ui/List';
 import TableBody from '@material-ui/core/TableBody';
@@ -12,24 +12,22 @@ import VerifiedUserIcon from '@material-ui/icons/VerifiedUser';
 import Button from '@material-ui/core/Button';
 import './Dashboard.css'
 
-const styles = {
-    titleLink: { textDecoration: 'none', color: '#000' },
-    card: { borderLeft: 'solid 4px #f44336', flex: 1, marginRight: '1em' },
-    icon: { float: 'right', width: 64, height: 64, padding: 16, color: '#f44336' },
-};
 
-const location = { pathname: 'reviews', query: { filter: JSON.stringify({ status: 'pending' }) } };
-
-function handleVerify() {
+function handleVerify(_this) {
     console.log("verify");
+    
 }
 
 function handleDecline() {
     console.log("decline");
 }
 
+function handleChange(e) {
+
+}
+
 export default ({ accounts = [], numPending }) => (
-    <Card className="pending-card">
+    <div>
         <CardTitle title={numPending} subtitle="Pending Accounts" />
         <TableContainer style={{ paddingTop: '30px' }}>
             <Table >
@@ -44,18 +42,18 @@ export default ({ accounts = [], numPending }) => (
                 </TableHead>
                 <TableBody>
                     {accounts.map(student =>
-                        <TableRow>
+                        <TableRow className="rows">
                             <TableCell> {student.name} </TableCell>
                             <TableCell align="right" > {student.shortId} </TableCell>
                             <TableCell align="right" > {student.longId} </TableCell>
                             <TableCell align="right" > {student.grade} </TableCell>
-                            <TableCell align="right" > <Button style={{width: '20px'}} onClick={handleVerify}> <VerifiedUserIcon /> </Button> <Button onClick={handleDecline}> <CloseIcon /> </Button></TableCell>
-                        </TableRow>
+                            <TableCell align="right" > <Button style={{ width: '20px' }} onClick={handleVerify(this)}> <VerifiedUserIcon /> </Button> <Button onClick={handleDecline}> <CloseIcon /> </Button></TableCell>
+                        </TableRow>,
                     )}
                 </TableBody>
             </Table>
         </TableContainer>
-    </Card>
+    </div>
 );
 
 //pending section should show a student's name, 
