@@ -30,3 +30,7 @@
     left: 56vw;
     top: -3vw;
 }
+
+.rows{
+    position: relative;
+}

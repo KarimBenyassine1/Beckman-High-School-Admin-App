@@ -14,6 +14,8 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import EditIcon from '@material-ui/icons/Edit';
 import TablePagination from '@material-ui/core/TablePagination';
+import axios from 'axios';
+
 
 
 class VerifiedStudents extends React.Component {
@@ -21,145 +23,25 @@ class VerifiedStudents extends React.Component {
         super(props)
 
         this.state = {
-            students: [
-                {
-                    name: "Karim Benyassine",
-                    shortId: "12345",
-                    longId: '240012452',
-                    grade: "12"
-                },
-                {
-                    name: "Alex Rea",
-                    shortId: "67890",
-                    longId: '945982334',
-                    grade: "12"
-                },
-                {
-                    name: "Saim Ahmad",
-                    shortId: "94735",
-                    longId: '697711443',
-                    grade: "12"
-                },
-                {
-                    name: "Jay Ni",
-                    shortId: "67452",
-                    longId: '167379456',
-                    grade: "12"
-                },
-                {
-                    name: "Alex Pham",
-                    shortId: "72572",
-                    longId: '834223562',
-                    grade: "12"
-                },
-                {
-                    name: "Shehzad Mansuri",
-                    shortId: "08345",
-                    longId: '447237934',
-                    grade: "12"
-                },
-                {
-                    name: "Vincent Le",
-                    shortId: "07684",
-                    longId: '346583958',
-                    grade: "12"
-                },
-                {
-                    name: "Jimmy Jimmyson",
-                    shortId: "35876",
-                    longId: '123748468',
-                    grade: "12"
-                },
-                {
-                    name: "Timmy Timmyson",
-                    shortId: "98765",
-                    longId: '338357835',
-                    grade: "12"
-                },
-                {
-                    name: "Tommy Tommyson",
-                    shortId: "45678",
-                    longId: '757452383',
-                    grade: "12"
-                },
-                {
-                    name: "Bobby Bobbyson",
-                    shortId: "74532",
-                    longId: '876543345',
-                    grade: "12"
-                },
-                {
-                    name: "Jenny Jennyson",
-                    shortId: "24234",
-                    longId: '693855823',
-                    grade: "12"
-                },
-                {
-                    name: "Simp Simpson",
-                    shortId: "24884",
-                    longId: '125939449',
-                    grade: "12"
-                },
-                {
-                    name: "GRrr GRrson",
-                    shortId: "86434",
-                    longId: '264664264',
-                    grade: "12"
-                },
-                {
-                    name: "Tss Tsson",
-                    shortId: "85866",
-                    longId: '734353767',
-                    grade: "12"
-                },
-                {
-                    name: "Ahhh Ahhh",
-                    shortId: "63457",
-                    longId: '834674457',
-                    grade: "12"
-                },
-                {
-                    name: "Ehheehhh",
-                    shortId: "84534",
-                    longId: '987654736',
-                    grade: "12"
-                },
-                {
-                    name: "Oohohhohh",
-                    shortId: "75234",
-                    longId: '964683569',
-                    grade: "12"
-                },
-                {
-                    name: "Reeeeee",
-                    shortId: "23456",
-                    longId: '167379456',
-                    grade: "12"
-                },
-                {
-                    name: "Mannnnnn",
-                    shortId: "96457",
-                    longId: '123987685',
-                    grade: "12"
-                },
-                {
-                    name: "Boiii",
-                    shortId: "09876",
-                    longId: '447237934',
-                    grade: "12"
-                },
-                {
-                    name: "Duuuudde",
-                    shortId: "35785",
-                    longId: '387657946',
-                    grade: "12"
-                },
-            ],
+            students: [],
             search: '',
             page: 0,
         }
 
         this.handleChangePage = this.handleChangePage.bind(this);
+    }
+
+    componentDidMount(){
+        console.log("component mounted in the VerifiedStudents page");
+        var verifiedAccounts;
+        axios.get('http://localhost:5000/verified-account-information')
+            .then(res => {
+                console.log(res);
+                verifiedAccounts = res.data;
+                this.setState({ students: verifiedAccounts });
+            })
+            .catch(err => console.log(err));
+        console.log("data received from componentDidMount: " + this.state.students);
     }
 
     updateSearch = (event) => {
