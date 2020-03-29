@@ -1,13 +1,9 @@
-import React, { Component } from 'react';
-//import { AppBarMobile, GET_LIST, GET_MANY } from 'admin-on-rest';
+import React, { Component, useState } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import IntroductionCard from './IntroductionCard.js';
-//import PendingReviews from './PendingReviews';
-//import restClient from '../restClient';
 import './Dashboard.css'
 import Menu from "../Menu"
 import Sidebar from "../SideBar/SideBar";
-import PendingAcounts from './PendingAccounts';
 import { Card, CardTitle } from 'material-ui/Card';
 import TextField from '@material-ui/core/TextField'
 import TableBody from '@material-ui/core/TableBody';
@@ -18,81 +14,88 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import CloseIcon from '@material-ui/icons/Close';
 import VerifiedUserIcon from '@material-ui/icons/VerifiedUser';
-import Button from '@material-ui/core/Button';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import IconButton from '@material-ui/core/IconButton';
+import axios from 'axios';
 
 class Dashboard extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            pendingAccounts: [
-                {
-                    name: "Saim Ahmad",
-                    shortId: "12345",
-                    longId: "12345678",
-                    grade: "12",
-                    id: '1'
-                },
-                {
-                    name: "Not Saim",
-                    shortId: "54321",
-                    longId: "87654321",
-                    grade: "9",
-                    id: '2'
-                }
-            ],
-
-            
+            pendingAccounts: [],
+            rowColor: [],
             filter: '',
             
         }
     }
 
-    handleChange = (e) => {
-        this.setState({
-            filter: e.target.value
-        })
-        console.log(this.state.filter);
 
-        e.preventDefault();
+    componentDidMount() {
+        console.log("component mounted in the Dashboard");
+        var pendingAccount;
+        axios.get('http://localhost:5000/pending-account-information')
+            .then(res => {
+                console.log(res);
+                pendingAccount = res.data;
+                this.setState({ pendingAccounts: pendingAccount });
+            })
+            .catch(err => console.log(err));
+        console.log("data received from componentDidMount: " + this.state.pendingAccounts);
+    
+        let rowColor = this.state.rowColor;
+        for(var i = 0; i < this.state.pendingAccounts.length; i++){
+            rowColor.push('white')
+        }
+    
+    }
+
+    handleChange = (e) => {
+        this.setState({ filter: e.target.value });
+        console.log(this.state.filter);
     }
 
 
     handleVerify = (student) => {
-        let pendingAccounts = this.state.pendingAccounts;
-        pendingAccounts.splice(this.state.pendingAccounts.indexOf(student), 1);
-        this.setState({
-            pendingAccounts: pendingAccounts
-        })
+        const obj = this.state.pendingAccounts[this.state.pendingAccounts.indexOf(student)];
+        console.log(obj);
 
-        //ADD CODE TO SEND TO API
+        axios.post('http://localhost:5000/verify-pending-account', obj)
+            .then(res => console.log(res))
+            .catch(err => console.log(err));
+
+        axios.post('http://localhost:5000/delete-pending-account-information', student)
+            .then(res => console.log(res))
+            .catch(err => console.log(err));
+
     }
 
     handleDecline = (student) => {
-        let pendingAccounts = this.state.pendingAccounts;
-        pendingAccounts.splice(this.state.pendingAccounts.indexOf(student), 1);
-        this.setState({
-            pendingAccounts: pendingAccounts
-        })
+        axios.post('http://localhost:5000/delete-pending-account-information', student)
+            .then(res => console.log(res))
+            .catch(err => console.log(err));
+        //this.declineStudent(student)
+    }
 
-        //ADD CODE TO SEND TO API
+    declineStudent = (student) => {
+        const { name, shortId, longId, grade } = student
+        let pendingAccounts = this.state.pendingAccounts
+        pendingAccounts[this.state.pendingAccounts.indexOf(student)].name = "STUDENT DECLINED"
+        this.setState({ pendingAccounts: pendingAccounts })
     }
 
     handleRefresh = () => {
+        //No extra code is needed because refreshing the screen calls the componentDidMount() function
         window.location.reload(false);
-
-        //ADD CODE TO SEND TO API
     }
 
     render() {
         let accounts = this.state.pendingAccounts.filter(
             (account) => {
-                return !account.name.toLowerCase().indexOf(this.state.filter.toLowerCase()) ||
+                return account.name.toLowerCase().indexOf(this.state.filter.toLowerCase()) !== -1 ||
                     account.shortId.indexOf(this.state.filter) !== -1;
             }
         );
-        let numPending = this.state.numPending;
+
 
         return (
             <MuiThemeProvider>
@@ -103,8 +106,8 @@ class Dashboard extends Component {
                     <div className="right-adjust">
                         <Card className="pending-card">
                             <CardTitle title={this.state.pendingAccounts.length} subtitle="Pending Accounts" />
-                            <TextField id="standard-basic" className="filter " label="Filter by Name or Short ID" name="filter" onChange={this.handleChange} />
-                            <IconButton onClick={this.handleRefresh}  className="refresh" > <RefreshIcon color="primary" /> </IconButton>
+                            <TextField id="standard-basic" className="filter" value={this.state.filter} label="Filter by Name or Short ID" name="filter" onChange={this.handleChange} />
+                            <IconButton onClick={() => window.location.reload(false)} className="refresh" > <RefreshIcon color="primary" /> </IconButton>
                             <TableContainer style={{ paddingTop: '30px' }}>
                                 <Table >
                                     <TableHead>
@@ -118,12 +121,12 @@ class Dashboard extends Component {
                                     </TableHead>
                                     <TableBody>
                                         {accounts.map(student =>
-                                            <TableRow className="rows">
+                                            <TableRow className="rows" style={{backgroundColor: 'white' }}>
                                                 <TableCell> {student.name} </TableCell>
                                                 <TableCell align="right" > {student.shortId} </TableCell>
                                                 <TableCell align="right" > {student.longId} </TableCell>
                                                 <TableCell align="right" > {student.grade} </TableCell>
-                                                <TableCell align="right" > <IconButton  onClick={() => this.handleVerify(student)}> <VerifiedUserIcon /> </IconButton> <IconButton onClick={() => this.handleDecline(student)}> <CloseIcon /> </IconButton> </TableCell>
+                                                <TableCell align="right" > <IconButton onClick={() => this.handleVerify(student)}> <VerifiedUserIcon /> </IconButton> <IconButton onClick={() => this.handleDecline(student)}> <CloseIcon /> </IconButton> </TableCell>
                                             </TableRow>,
                                         )}
                                     </TableBody>
@@ -136,7 +139,5 @@ class Dashboard extends Component {
         );
     }
 }
-
-//<PendingReviews nb={nbPendingReviews} reviews={pendingReviews} customers={pendingReviewsCustomers} />
 
 export default Dashboard;

@@ -7,8 +7,7 @@
 }
 .backgroundDash{
     height: 1470px;
-    background: rgb(219,17,17);
-    background: linear-gradient(0deg, rgba(219,17,17,1) 0%, rgba(177,31,31,1) 24%, rgba(102,7,152,1) 49%, rgba(0,125,255,1) 100%);
+    background-color: #e3e3e3;
     overflow-x: hidden;
 
 }

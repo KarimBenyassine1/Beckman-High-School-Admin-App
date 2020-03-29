@@ -86,7 +86,7 @@ class Reset extends React.Component {
                   Reset Your Password
               </Typography>
               <ValidatorForm
-                  style={{position:"relative", top:"150px"}}
+                  style={{position:"relative", top:"140px"}}
                   ref="form"
                   onSubmit={this.handleSubmit}
                   onError={errors => console.log(errors)}
@@ -96,7 +96,7 @@ class Reset extends React.Component {
                   onChange={this.handleChange}
                   name="username"
                   value={this.state.username}
-                  style={{position: 'relative', left: '5px', bottom: '15px', width: '320px', height: '20px'}}
+                  style={{position: 'relative', left: '5px', bottom: '50px', width: '320px'}}
                 />
                 <TextValidator
                   type="password" 
@@ -106,7 +106,7 @@ class Reset extends React.Component {
                   value={this.state.password}
                   validators={['isPassword']}
                   errorMessages={['password must be greater than 5 characters']}
-                  style={{position: 'relative', left: "5px", top: '35px', width: '320px', height: '20px'}} />
+                  style={{position: 'relative', left: "5px", top: '55px', width: '320px', height: '20px'}} />
                 <TextValidator
                   type="password" 
                   label="Repeat Password"
@@ -115,8 +115,8 @@ class Reset extends React.Component {
                   value={this.state.repeatPassword}
                   validators={['isPasswordMatch']}
                   errorMessages={['password mismatch']}
-                  style={{position: 'relative', left: "5px", top: '90px', width: '320px', height: '20px'}} />
-                <CardContent style={{position: 'relative', right: "63px", bottom: '37px'}}>
+                  style={{position: 'relative', left: "5px", top: '100px', width: '320px', height: '20px'}} />
+                <CardContent style={{position: 'relative', right: "63px", bottom: '30px'}}>
                   <Button type="submit" variant="contained" disabled={this.validatorSubmit()} color="primary" className="reset">
                     Reset Password
                   </Button>

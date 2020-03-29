@@ -67,7 +67,7 @@ class Login extends React.Component {
     console.log(this.state.errors)
 
     if(!this.state.errors){
-      //axios.post()
+      //post to login verification pagee
       window.location.href="/dashboard"
     }else{
       alert("Incorrect Username or Password!")
