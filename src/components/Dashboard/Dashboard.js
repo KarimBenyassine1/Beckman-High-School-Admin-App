@@ -43,7 +43,7 @@ class Dashboard extends Component {
                 }
             ],
 
-            numPending:2,
+            
             filter: '',
             
         }
@@ -102,7 +102,7 @@ class Dashboard extends Component {
                     <IntroductionCard />
                     <div className="right-adjust">
                         <Card className="pending-card">
-                            <CardTitle title={numPending} subtitle="Pending Accounts" />
+                            <CardTitle title={this.state.pendingAccounts.length} subtitle="Pending Accounts" />
                             <TextField id="standard-basic" className="filter " label="Filter by Name or Short ID" name="filter" onChange={this.handleChange} />
                             <IconButton onClick={this.handleRefresh}  className="refresh" > <RefreshIcon color="primary" /> </IconButton>
                             <TableContainer style={{ paddingTop: '30px' }}>

@@ -18,10 +18,7 @@ class Login extends React.Component {
       password: '',
       loginStatus:'IS_LOGGED',
       clickedSubmit:false,
-      errors:{
-        username: '',
-         password: '',
-      },
+      errors:false,
       users: [
         { 
           id:1,
@@ -36,13 +33,18 @@ class Login extends React.Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
-  validateForm = e => {
-    let valid = true;
-    Object.values(e).forEach(
-        (val) => val.length > 0 && (valid = false)
-    );
-    return valid;
-}
+  componentDidMount() {
+    ValidatorForm.addValidationRule('isUsernameValid', () => {
+        if (this.state.users.some(user=>user.loginUser!==this.state.username)) {
+            return false;
+        }
+        return true;
+    });
+  }
+
+  componentWillUnmount() {
+    ValidatorForm.removeValidationRule('isUsernameValid');
+  }
 
   handleChange = (event) => {
     this.setState({[event.target.name]: event.target.value});
@@ -57,35 +59,29 @@ class Login extends React.Component {
       loginPassword: password
     };  
 
-    if (this.validateForm(this.state.errors)) {
-      //do all the login stuff
+    if(this.state.password==='1'){
+      this.setState({errors: true});
+    }else{
+    this.setState({errors: false});
+    }
+    console.log(this.state.errors)
 
-      /*
-            axios.post('http://localhost:6000/register', obj)
-              .then(res => console.log(res))
-              .catch(err => console.log(err));
-            //console.log(this.state.status);
-      */
-      if (this.state.status) {
-          alert("login successful")
-      } else {
-          alert("an instance of your username already exist in the system. Please try logging in again.")
-      }
-  }
+    if(!this.state.errors){
+      //axios.post()
+      window.location.href="/dashboard"
+    }else{
+      alert("Incorrect Username or Password!")
+    }
 
     event.preventDefault();
   }
 
-  
-  
+ 
 
 
 
   emptyOrNot=()=>{
     if(this.state.username!== ''&&this.state.password!==''){
-      if(this.state.users.some(user=>user.loginUser!==this.state.username)){
-        return true;
-      }
       return false;
     }else{
       return true;
@@ -101,16 +97,18 @@ class Login extends React.Component {
         >
           <Card style={{width: "350px", height: "410px"}}>
             <img src="https://upload.wikimedia.org/wikipedia/commons/0/03/Bpatriots_1.jpg" alt="BHS Logo" style={{paddingLeft:'83px'}} height="175" width="175"/>
-            <form
+            <ValidatorForm
                 ref="form"
                 onSubmit={this.handleSubmit}
                 onError={errors => console.log(errors)}
             >
-              <TextField
+              <TextValidator
                 label="Username"
                 onChange={this.handleChange}
                 name="username"
                 value={this.state.username}
+                validators={['isUsernameValid']}
+                errorMessages={['Username does not exist']}
                 style={{position: 'relative', left: '5px', bottom: '15px', width: '320px', height: '20px'}}
                 />
               <TextField
@@ -121,28 +119,18 @@ class Login extends React.Component {
                 value={this.state.password}
                 style={{position: 'relative', left: "5px", top: '35px', width: '320px', height: '20px'}} />
               <a href="/reset-password" className="forgot">Forgot Password?</a>
-              <Button type="submit" variant="contained" color="primary" disabled={this.emptyOrNot()} className="button" href="/dashboard">
+              <Button type="submit" variant="contained" color="primary" disabled={this.emptyOrNot()} className="button">
                 Sign In
               </Button>
               <p style={{fontSize:"16px", position:'relative', top: '100px', left: '50px', color: 'gray'}}>Not Registered?<span><a href ="/register" style={{color:'blue', textDecoration: 'none'}}> Create an account</a></span></p>
-            </form>
+            </ValidatorForm>
           </Card>
         </Box>
       </div>
     )
   }
 
-  render(){
-    /*if(clickedSubmit){
-      if(error){
-      return(
-        <div>
-          <Alerts />
-        </div>
-      )
-      }
-    }*/
-    
+  render(){    
     return(
       <div>
         {this.renderLogin()}
