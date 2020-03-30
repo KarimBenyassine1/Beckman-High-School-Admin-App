@@ -64,14 +64,20 @@ class Dashboard extends Component {
             .catch(err => console.log(err));
 
         axios.post('http://localhost:5000/delete-pending-account-information', student)
-            .then(res => console.log(res))
+            .then(res => {
+                console.log(res);
+                this.acceptStudent(student);
+            })
             .catch(err => console.log(err));
 
     }
 
     handleDecline = (student) => {
         axios.post('http://localhost:5000/delete-pending-account-information', student)
-            .then(res => console.log(res))
+            .then(res => {
+                console.log(res);
+                this.declineStudent(student);
+            })
             .catch(err => console.log(err));
         //this.declineStudent(student)
     }
@@ -80,6 +86,13 @@ class Dashboard extends Component {
         const { name, shortId, longId, grade } = student
         let pendingAccounts = this.state.pendingAccounts
         pendingAccounts[this.state.pendingAccounts.indexOf(student)].name = "STUDENT DECLINED"
+        this.setState({ pendingAccounts: pendingAccounts })
+    }
+
+    acceptStudent = (student) => {
+        const { name, shortId, longId, grade } = student
+        let pendingAccounts = this.state.pendingAccounts
+        pendingAccounts[this.state.pendingAccounts.indexOf(student)].name = "STUDENT ACCEPTED"
         this.setState({ pendingAccounts: pendingAccounts })
     }
 
