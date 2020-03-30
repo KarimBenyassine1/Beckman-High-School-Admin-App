@@ -46,7 +46,7 @@ class VerifiedStudents extends React.Component {
 
     updateSearch = (event) => {
         this.setState({
-            search: event.target.value.substring(0,
+            search: event.target.value.substr(0,
                 40)
         })
     }
@@ -63,8 +63,8 @@ class VerifiedStudents extends React.Component {
             }
         );
 
-
-        return (
+        
+        return(
             <div className="backgroundDash">
                 <Menu />
                 <Sidebar />
@@ -96,10 +96,10 @@ class VerifiedStudents extends React.Component {
                                 ))}
                             </TableBody>
                         </Table>
-                    </TableContainer>
-                    <TablePagination
-                        style={{ position: 'relative', right: "810px" }}
-                        count={this.state.students.length}
+                        </TableContainer>
+                        <TablePagination
+                        style={{position: 'relative', right: "810px"}}
+                        count={filteredStudents.length} 
                         rowsPerPage={15}
                         page={this.state.page}
                         component="div"

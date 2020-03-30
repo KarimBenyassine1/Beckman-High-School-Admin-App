@@ -3,6 +3,7 @@ import './login.css';
 import Card from '@material-ui/core/Card';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
+import TextField from '@material-ui/core/TextField';
 import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 import Alerts from "../Login/alert";
 
@@ -17,8 +18,14 @@ class Login extends React.Component {
       password: '',
       loginStatus:'IS_LOGGED',
       clickedSubmit:false,
-      error: false,
-      users: []
+      errors:false,
+      users: [
+        { 
+          id:1,
+          loginUser: "Karim",
+          loginPass: "1234"
+        }
+      ]
     }
     
     
@@ -26,7 +33,18 @@ class Login extends React.Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
-  
+  componentDidMount() {
+    ValidatorForm.addValidationRule('isUsernameValid', () => {
+        if (this.state.users.some(user=>user.loginUser!==this.state.username)) {
+            return false;
+        }
+        return true;
+    });
+  }
+
+  componentWillUnmount() {
+    ValidatorForm.removeValidationRule('isUsernameValid');
+  }
 
   handleChange = (event) => {
     this.setState({[event.target.name]: event.target.value});
@@ -41,9 +59,26 @@ class Login extends React.Component {
       loginPassword: password
     };  
 
+    if(this.state.password==='1'){
+      this.setState({errors: true});
+    }else{
+    this.setState({errors: false});
+    }
+    console.log(this.state.errors)
+
+    if(!this.state.errors){
+      //post to login verification pagee
+      window.location.href="/dashboard"
+    }else{
+      alert("Incorrect Username or Password!")
+    }
 
     event.preventDefault();
   }
+
+ 
+
+
 
   emptyOrNot=()=>{
     if(this.state.username!== ''&&this.state.password!==''){
@@ -53,7 +88,7 @@ class Login extends React.Component {
     }
   }
 
-
+  
   renderLogin(){
     return(
       <div className="background">
@@ -72,24 +107,22 @@ class Login extends React.Component {
                 onChange={this.handleChange}
                 name="username"
                 value={this.state.username}
-                validators={['required']}
-                errorMessages={['this field is required']} 
+                validators={['isUsernameValid']}
+                errorMessages={['Username does not exist']}
                 style={{position: 'relative', left: '5px', bottom: '15px', width: '320px', height: '20px'}}
                 />
-              <TextValidator
+              <TextField
                 type="password" 
                 label="Password"
                 onChange={this.handleChange}
                 name="password"
                 value={this.state.password}
-                validators={['required']}
-                errorMessages={['this field is required']} 
                 style={{position: 'relative', left: "5px", top: '35px', width: '320px', height: '20px'}} />
               <a href="/reset-password" className="forgot">Forgot Password?</a>
-              <Button type="submit" variant="contained" color="primary" disabled={this.emptyOrNot()} className="button" href="/dashboard">
+              <Button type="submit" variant="contained" color="primary" disabled={this.emptyOrNot()} className="button">
                 Sign In
               </Button>
-              <p style={{fontSize:"16px", position:'relative', top: '100px', left: '50px', color: 'gray'}}>Not Registered?<span><a style={{color:'blue'}} href='/register'> Create an account</a></span></p>
+              <p style={{fontSize:"16px", position:'relative', top: '100px', left: '50px', color: 'gray'}}>Not Registered?<span><a href ="/register" style={{color:'blue', textDecoration: 'none'}}> Create an account</a></span></p>
             </ValidatorForm>
           </Card>
         </Box>
@@ -97,19 +130,7 @@ class Login extends React.Component {
     )
   }
 
-  render(){
-    const {error, clickedSubmit}=this.state;
-  
-    if(clickedSubmit){
-      if(error){
-      return(
-        <div>
-          <Alerts />
-        </div>
-      )
-      }
-    }
-
+  render(){    
     return(
       <div>
         {this.renderLogin()}

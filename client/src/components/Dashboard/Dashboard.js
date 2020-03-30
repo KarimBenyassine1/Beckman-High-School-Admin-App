@@ -25,6 +25,7 @@ class Dashboard extends Component {
             pendingAccounts: [],
             rowColor: [],
             filter: '',
+            
         }
     }
 
