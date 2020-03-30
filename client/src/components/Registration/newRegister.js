@@ -8,8 +8,9 @@ import Typography from '@material-ui/core/Typography';
 import CardContent from '@material-ui/core/CardContent';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
+import axios from 'axios';
 
-const currencies = [
+const schools = [
     {
         value: 'Arnold O. Beckman High School',
         label: "Beckman High School"
@@ -92,8 +93,6 @@ class Register extends React.Component {
       }
       console.log(obj)
 
-      if (this.validatorSubmit()) {
-        //do all the registration stuff
         var status;
         axios.post('http://localhost:5000/register', obj)
           .then(res => {
@@ -108,10 +107,7 @@ class Register extends React.Component {
             }
           })
           .catch(err => console.log(err));
-      } else {
-        // handle what to do if registration is not valid
-        alert("Please fill out the proper registration information before submitting your information");
-      }
+      
     }
   
     renderReg(){
@@ -140,7 +136,7 @@ class Register extends React.Component {
                                 helperText="Select a school"
                                 style={{position: 'relative', left: '5px', bottom: '10px', width: '320px'}}
                             >
-                                {currencies.map(option => (
+                                {schools.map(option => (
                                     <MenuItem key={option.value} value={option.value}>
                                         {option.label}
                                     </MenuItem>
@@ -184,7 +180,7 @@ class Register extends React.Component {
                     style={{position: 'relative', left: "5px", top: '130px', width: '320px', height: '20px'}} />
                 </ValidatorForm>
                 </CardContent>
-                <Button type="submit" variant="contained" color="primary" disabled={this.validatorSubmit()} style={{position: 'relative', left: '135px', top: '185px'}}>
+                <Button type="submit" variant="contained" color="primary" disabled={this.validatorSubmit()} onClick={this.handleSubmit} style={{position: 'relative', left: '135px', top: '185px'}}>
                 Submit
               </Button>
               <p style={{fontSize:"16px", position:'relative', top: '190px', left: '50px', color: 'gray'}}>Already have an Account?<span><a href ="/" style={{color:'blue', textDecoration: 'none'}}> Sign In!</a></span></p>

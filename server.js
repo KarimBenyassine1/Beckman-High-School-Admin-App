@@ -21,8 +21,6 @@ app.post('/register', function (req, res) {
     
     fs.readFile("./sample.json", function(err, data){
         var json = JSON.parse(data);
-        console.log("Json:")
-        console.log(json);
 
         var index = false;
         var stringifiedBody = JSON.stringify(req.body.email);
@@ -42,7 +40,6 @@ app.post('/register', function (req, res) {
             }
         }
 
-        //only run this code if it does not exist in the DB
         json.push(req.body);
         if(!index){
             fs.writeFile("./sample.json", JSON.stringify(json), function (err) {
@@ -63,6 +60,37 @@ app.get("/register", function (req, res) {
     console.log("recieved GET to /register");
     res.sendStatus(200);
     res.end();
+});
+
+app.post('/login', function (req, res) {
+    console.log("recieved POST to /login");
+    fs.readFile("./sample.json", function (err, data) {
+        var json = JSON.parse(data);
+
+        var index = false;
+        var indexVal = null;
+        var stringifiedBody = JSON.stringify(req.body.loginName);
+        for (var i = 0; i < json.length; i++) {
+            if (JSON.stringify(json[i].email) === stringifiedBody || JSON.stringify(json[i].user) === stringifiedBody) {
+                console.log("equal at: " + i);
+                indexVal = i;
+                break;
+            }
+        }
+        if(indexVal != null){
+            console.log("username found in db, checking password now");
+            var stringifiedBody = JSON.stringify(req.body.loginPassword);
+                if (JSON.stringify(json[indexVal].password) === stringifiedBody) {
+                    index = true;
+                }
+        }
+        if (index) {
+            return res.status(200).send('true');
+            //do return here because more than one res.whatever() started giving me errors even though we do that later in the code
+        } else {
+            res.status(200).send('false');
+        }
+    })
 });
 
 app.post('/verify-pending-account', function (req, res) {
