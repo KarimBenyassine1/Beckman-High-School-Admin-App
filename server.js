@@ -15,9 +15,8 @@ app.use((req, res, next) => {
     next()
 });
 
-//this function is not updated and does not work at the moment
+
 app.post('/register', function (req, res) {
-    console.log(req.body);
     console.log("recieved POST to /register");
     
     fs.readFile("./sample.json", function(err, data){
@@ -25,25 +24,39 @@ app.post('/register', function (req, res) {
         console.log("Json:")
         console.log(json);
 
-        var emails = json.filter(function(e){
-            return e.email = req.body.email
-        })
-        console.log("emails:")
-        console.log(emails);
+        var index = false;
+        var stringifiedBody = JSON.stringify(req.body.email);
+        for (var i = 0; i < json.length; i++) {
+            if (JSON.stringify(json[i].email) === stringifiedBody) {
+                console.log("equal at: " + i);
+                index = true;
+                break;
+            }
+        }
+        var stringifiedBody = JSON.stringify(req.body.school);
+        for (var i = 0; i < json.length; i++) {
+            if (JSON.stringify(json[i].school) === stringifiedBody) {
+                console.log("equal at: " + i);
+                index = true;
+                break;
+            }
+        }
 
         //only run this code if it does not exist in the DB
         json.push(req.body);
-        fs.writeFile("./sample.json", JSON.stringify(json), function(err){
-            if(err){
-                return console.log(err)
-            }
-            console.log("successfully went through")
-        });
+        if(!index){
+            fs.writeFile("./sample.json", JSON.stringify(json), function (err) {
+                if (err) {
+                    return console.log(err)
+                }
+                console.log("successfully went through")
+            });
+            return res.status(200).send('true'); 
+            //do return here because more than one res.whatever() started giving me errors even though we do that later in the code
+        } else {
+            res.status(200).send('false');
+        }
     })
-    
-    res.sendStatus(200);
-    res.end();
-
 });
 
 app.get("/register", function (req, res) {
@@ -142,6 +155,8 @@ app.post("/delete-pending-account-information", function(req, res){
 app.listen(5000, function () {
     console.log("Started Server on PORT 5000");
 })
+
+
 
 /*
 sample code to put into AccountDB.json if it breaks
