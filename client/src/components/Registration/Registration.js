@@ -7,6 +7,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField'
 import MenuItem from '@material-ui/core/MenuItem';
+import axios from 'axios';
 
 
 
@@ -29,7 +30,6 @@ class SimpleCard extends Component {
 
     constructor(props) {
         super(props);
-
         this.state = {
             email: "",
             user: "",
@@ -42,7 +42,8 @@ class SimpleCard extends Component {
                 password: '',
                 confirmpassword: '',
                 school: 'Select a school!'
-            }
+            },
+            status: false,
         };
     }
 
@@ -67,21 +68,23 @@ class SimpleCard extends Component {
 
         if (this.validateForm(this.state.errors)) {
             //do all the registration stuff
-
-            /*
-                  axios.post('http://localhost:6000/register', obj)
-                    .then(res => console.log(res))
-                    .catch(err => console.log(err));
-                  //console.log(this.state.status);
-            */
-            if (this.state.status) {
-                alert("login successful")
-            } else {
-                alert("an instance of your school or email already exist in the system. Please try registering again with different credentials")
-            }
+            var status;
+            axios.post('http://localhost:5000/register', obj)
+                .then(res => {
+                    console.log(res);
+                    status = res.data;
+                    this.setState({ status: status });
+                    console.log(this.state.status);
+                    if (this.state.status) {
+                        alert("registration successful")
+                    } else {
+                        alert("an instance of your school or email already exist in the system. Please try registering again with different credentials")
+                    }
+                })
+                .catch(err => console.log(err));
         } else {
-            // handle what to do if registration is not valid
-            alert("Please fill out the proper registration information before submitting this information");
+        // handle what to do if registration is not valid
+           alert("Please fill out the proper registration information before submitting your information");
         }
     }
 
@@ -110,14 +113,14 @@ class SimpleCard extends Component {
                         ? 'Your password must be greater than 6 characters long!'
                         : ''
                 errors.confirmpassword =
-                    value != this.state.confirmpassword
+                    value !== this.state.confirmpassword
                         ? 'The password you entered do not match!'
                         : ''
                 break;
 
             case 'confirmpassword':
                 errors.confirmpassword =
-                    value != this.state.password
+                    value !== this.state.password
                         ? 'The password you entered do not match!'
                         : ''
                 break;
@@ -128,6 +131,9 @@ class SimpleCard extends Component {
                         ? ''
                         : 'Select a school!'
                 break;
+
+            default:
+                // do nothing
         }
 
         this.setState({
@@ -174,8 +180,8 @@ class SimpleCard extends Component {
                             <TextField id="standard-basic" label="Confirm Password" name="confirmpassword" type="password" fullWidth={true} onChange={this.handleChange} noValidate />
                             {errors.confirmpassword.length > 0 && <span className="error" > {errors.confirmpassword} </span>}
                             <CardActions>
-                                <Button size="small" variant="contained" color="primary" type="submit" style={{postion:'relative', right: '8px', top:'10px'}}> Register </Button>
-                                <Button size="small" variant="contained" color="primary" style={{postion:'relative', top:'10px'}} href='/'> Already have an account? </Button>
+                                <Button size="small" variant="contained" color="primary" type="submit" style={{ postion: 'relative', right: '8px', top: '10px' }}> Register </Button>
+                                <Button size="small" variant="contained" color="primary" style={{ postion: 'relative', top: '10px' }} href='/'> Already have an account? </Button>
                             </CardActions>
                         </form>
                     </CardContent>
