@@ -2,6 +2,7 @@ var express = require("express");
 var bodyParser = require("body-parser");
 var fs = require('fs');
 var app = express();
+const updateJsonFile = require('update-json-file');
 //Here we are configuring express to use body-parser as middle-ware.
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -55,6 +56,60 @@ app.post('/register', function (req, res) {
         }
     })
 });
+
+app.post("/reset-password", function(req,res){
+    console.log("recieved Post to /reset password");
+    console.log(req.body);
+    fs.readFile("./sample.json", function (err, data) {
+        var json = JSON.parse(data);
+
+        var index = false;
+        var indexVal = null;
+        var stringifiedBody = JSON.stringify(req.body.userEmail);
+        for (var i = 0; i < json.length; i++) {
+            if (JSON.stringify(json[i].email) === stringifiedBody || JSON.stringify(json[i].user) === stringifiedBody) {
+                console.log("equal at: " + i);
+                index=true;
+                indexVal = i;
+                break;
+            }
+        }
+
+        if(indexVal != null){
+            console.log("username found in db, changing password now");
+            var stringifiedBody = JSON.stringify(req.body.loginPassword);
+            json[indexVal].password=stringifiedBody;
+
+            fs.writeFile('./sample.json', JSON.stringify(json,null,2), function writeJSON(err) {
+                if (err) return console.log(err);
+                console.log(JSON.stringify(json,null,2));
+                console.log('writing to ' + './sample.json');
+              });
+
+
+            /*
+            updateJsonFile("./sample.json", (data) => {
+                JSON.stringify(data[indexVal].password) = stringifiedBody;
+                console.log(data[indexVal].password)
+                console.log("Changed Password")
+              })
+              .catch(err => console.log(err));
+            */
+        }
+
+
+        if (index) {
+            console.log("Changed password successful");
+            //do return here because more than one res.whatever() started giving me errors even though we do that later in the code
+        } else {
+            console.log("Changed password not successful");
+        }
+    })
+
+    res.sendStatus(200);
+
+});
+
 
 app.get("/register", function (req, res) {
     console.log("recieved GET to /register");
@@ -187,6 +242,24 @@ app.listen(5000, function () {
 
 
 /*
+
+(node:94354) UnhandledPromiseRejectionWarning: TypeError: Expected data to stringify
+    at init (/Users/KARIM/Desktop/hacklogin/node_modules/write-json-file/index.js:16:9)
+    at makeDir.then (/Users/KARIM/Desktop/hacklogin/node_modules/write-json-file/index.js:67:15)
+(node:94354) UnhandledPromiseRejectionWarning: Unhandled promise rejection. 
+This error originated either by throwing inside of an async function without a catch block, 
+or by rejecting a promise which was not handled with .catch(). (rejection id: 1)
+(node:94354) [DEP0018] DeprecationWarning: Unhandled promise rejections are deprecated. 
+In the future, promise rejections that are not handled will terminate the Node.js process with a non-zero exit code.
+
+
+
+
+
+
+
+
+
 sample code to put into AccountDB.json if it breaks
 DO NOT DELETE!
 

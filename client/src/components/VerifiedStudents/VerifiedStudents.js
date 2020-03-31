@@ -116,7 +116,7 @@ class VerifiedStudents extends React.Component {
                                         <TableCell align="right">{student.shortId}</TableCell>
                                         <TableCell align="right">{student.longId}</TableCell>
                                         <TableCell align="right">{student.grade}</TableCell>
-                                        <TableCell align="right"><Button style={{ position: 'relative', left: '15px' }} onClick={this.editButtonTest, this.handleOpen}><EditIcon color="primary" /></Button></TableCell>
+                                        <TableCell align="right"><Button style={{ position: 'relative', left: '15px' }} onClick={this.editButtonTest} ><EditIcon color="primary" /></Button></TableCell>
                                         <Modal open={this.state.isOpen} onClose={this.handleClose}>
                                             <div className="modal">
                                                 <h2>Edit Student Name</h2>

@@ -20,13 +20,6 @@ class Login extends React.Component {
       loginStatus: 'IS_LOGGED',
       clickedSubmit: false,
       errors: false,
-      users: [
-        {
-          id: 1,
-          loginUser: "Karim",
-          loginPass: "1234"
-        }
-      ],
       status: false, 
     }
 
@@ -35,18 +28,6 @@ class Login extends React.Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
-  componentDidMount() {
-    ValidatorForm.addValidationRule('isUsernameValid', () => {
-      if (this.state.users.some(user => user.loginUser !== this.state.username)) {
-        return false;
-      }
-      return true;
-    });
-  }
-
-  componentWillUnmount() {
-    ValidatorForm.removeValidationRule('isUsernameValid');
-  }
 
   handleChange = (event) => {
     this.setState({ [event.target.name]: event.target.value });
@@ -110,7 +91,6 @@ class Login extends React.Component {
                 onChange={this.handleChange}
                 name="username"
                 value={this.state.username}
-                validators={['isUsernameValid']}
                 style={{ position: 'relative', left: '5px', bottom: '15px', width: '320px', height: '20px' }}
               />
               <TextField

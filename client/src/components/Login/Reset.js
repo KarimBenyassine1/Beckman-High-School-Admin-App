@@ -6,7 +6,7 @@ import Box from '@material-ui/core/Box';
 import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 import Typography from '@material-ui/core/Typography';
 import CardContent from '@material-ui/core/CardContent';
-
+import axios from 'axios';
 
 class Reset extends React.Component {
     constructor(props){
@@ -70,7 +70,13 @@ class Reset extends React.Component {
         loginPassword: password,
       };  
       
-      console.log('submit')
+      axios.post('http://localhost:5000/reset-password', obj)
+        .then(res => {
+          console.log(res);
+           alert("Changed password successfully")
+        })
+        .catch(err => console.log(err));
+
   
       event.preventDefault();
     }
@@ -89,7 +95,6 @@ class Reset extends React.Component {
                   style={{position:"relative", top:"140px"}}
                   ref="form"
                   onSubmit={this.handleSubmit}
-                  onError={errors => console.log(errors)}
               >
                 <TextValidator
                   label="Email"
