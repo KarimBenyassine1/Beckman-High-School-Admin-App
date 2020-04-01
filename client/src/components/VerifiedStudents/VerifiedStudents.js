@@ -56,10 +56,12 @@ class VerifiedStudents extends React.Component {
         this.setState({ page: newPage })
     }
 
+    // called when people click the edit button
+    // this is the problem right now, nothing is rendering even though the method is being called
     showEditModal = (e, student) => {
-        console.log(student.name);
+        console.log(student.name);              // console log happens
         return (
-            <EditModal student={student}/>
+            <EditModal student={student}/>      // this doesn't happen
         )
     }
 
@@ -100,6 +102,7 @@ class VerifiedStudents extends React.Component {
                                         <TableCell align="right">{student.longId}</TableCell>
                                         <TableCell align="right">{student.grade}</TableCell>
                                         <TableCell align="right">
+                                            {/* Here is the edit button and the call to showEditModal */}
                                             <Button style={{ position: 'relative', left: '15px' }} onClick={(e) => this.showEditModal(e, student)}><EditIcon color="primary" /></Button>
                                         </TableCell>
                                     </TableRow>

@@ -13,7 +13,7 @@ import "./EditModal.css";
 
 class EditModal extends React.Component {
     constructor(props) {
-        console.log(props.student.name + "'s edit modal is being created.")
+        console.log(props.student.name + "'s edit modal is being created.")     // this isn't being logged when showEditModal is being called
         super(props)
         this.state = {
             student: this.props.student,   // the student's information that is passed in on VerifiedStudent.js
