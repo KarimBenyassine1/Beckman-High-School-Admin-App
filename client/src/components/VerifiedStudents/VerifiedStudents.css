@@ -25,10 +25,11 @@
     width: 200px;
 }
 
+/*
 .modal{
     position: relative;
-    /* align-items: center;
-    justify-content: center; */
+    align-items: center;
+    justify-content: center;
     background-color: #e3e3e3;
     left: 50px;
     width: 400px;
@@ -36,3 +37,4 @@
     border-color: #000000;
     border-width: 2px;
 }
+*/

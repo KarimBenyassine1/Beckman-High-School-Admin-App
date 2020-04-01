@@ -14,12 +14,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import EditIcon from '@material-ui/icons/Edit';
 import TablePagination from '@material-ui/core/TablePagination';
-import Modal from '@material-ui/core/Modal';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
+import EditModal from './EditModal.js';
 import axios from 'axios';
 
 
@@ -27,13 +22,10 @@ import axios from 'axios';
 class VerifiedStudents extends React.Component {
     constructor(props) {
         super(props)
-
         this.state = {
             students: [],
             search: '',
             page: 0,
-            isOpen: false,
-            value: false, // placeholder for the modal
         }
 
         this.handleChangePage = this.handleChangePage.bind(this);
@@ -64,19 +56,10 @@ class VerifiedStudents extends React.Component {
         this.setState({ page: newPage })
     }
 
-    editButtonTest() {
-        console.log("Yeetus");
-    }
-
-    handleOpen = () => {
-        this.setState(
-            { isOpen: true }
-        )
-    }
-
-    handleClose = () => {
-        this.setState(
-            { isOpen: false }
+    showEditModal = (e, student) => {
+        console.log(student.name);
+        return (
+            <EditModal student={student}/>
         )
     }
 
@@ -116,31 +99,10 @@ class VerifiedStudents extends React.Component {
                                         <TableCell align="right">{student.shortId}</TableCell>
                                         <TableCell align="right">{student.longId}</TableCell>
                                         <TableCell align="right">{student.grade}</TableCell>
-                                        <TableCell align="right"><Button style={{ position: 'relative', left: '15px' }} onClick={this.editButtonTest, this.handleOpen}><EditIcon color="primary" /></Button></TableCell>
-                                        <Modal open={this.state.isOpen} onClose={this.handleClose}>
-                                            <div className="modal">
-                                                <h2>Edit Student Name</h2>
-                                                <FormControl component="fieldset">
-                                                    <FormLabel component="legend">ASB</FormLabel>
-                                                    <RadioGroup name="ASB" value={this.state.value} onChange={this.handleChangeRadio}>
-                                                        <FormControlLabel value="yes" control={<Radio />} label="Yes" />
-                                                        <FormControlLabel value="no" control={<Radio />} label="No" />
-                                                    </RadioGroup>
-                                                    <FormLabel component="legend">Off Sixth Period</FormLabel>
-                                                    <RadioGroup name="offsix" value={this.state.value} onChange={this.handleChangeRadio}>
-                                                        <FormControlLabel value="yes" control={<Radio />} label="Yes" />
-                                                        <FormControlLabel value="no" control={<Radio />} label="No" />
-                                                    </RadioGroup>
-                                                    <FormLabel component="legend">Off Lunch</FormLabel>
-                                                    <RadioGroup name="offlunch" value={this.state.value} onChange={this.handleChangeRadio}>
-                                                        <FormControlLabel value="yes" control={<Radio />} label="Yes" />
-                                                        <FormControlLabel value="no" control={<Radio />} label="No" />
-                                                    </RadioGroup>
-                                                </FormControl>
-                                            </div>
-                                        </Modal>
+                                        <TableCell align="right">
+                                            <Button style={{ position: 'relative', left: '15px' }} onClick={(e) => this.showEditModal(e, student)}><EditIcon color="primary" /></Button>
+                                        </TableCell>
                                     </TableRow>
-
                                 ))}
                             </TableBody>
                         </Table>
@@ -152,7 +114,6 @@ class VerifiedStudents extends React.Component {
                         page={this.state.page}
                         component="div"
                         onChangePage={this.handleChangePage} />
-
                 </Card>
             </div>
         )
