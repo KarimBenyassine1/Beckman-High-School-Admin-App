@@ -29,6 +29,7 @@ class VerifiedStudents extends React.Component {
         }
 
         this.handleChangePage = this.handleChangePage.bind(this);
+        this.showEditModal = this.showEditModal.bind(this);
 
     }
 
@@ -61,7 +62,7 @@ class VerifiedStudents extends React.Component {
     showEditModal = (e, student) => {
         console.log(student.name);              // console log happens
         return (
-            <EditModal student={student}/>      // this doesn't happen
+            <EditModal student={student} isOpen={true}/>      // this doesn't happen
         )
     }
 

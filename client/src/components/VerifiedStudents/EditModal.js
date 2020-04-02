@@ -16,11 +16,11 @@ class EditModal extends React.Component {
         console.log(props.student.name + "'s edit modal is being created.")     // this isn't being logged when showEditModal is being called
         super(props)
         this.state = {
-            student: this.props.student,   // the student's information that is passed in on VerifiedStudent.js
+            student: this.props.student,    // the student's information that is passed in on VerifiedStudent.js
             isOpen: false,
-            checkedASB: false,              //props.student.hasASB (or whatever you want to name it Saim) once that is added to the data base, false for now
-            checkedOffSix: false,           //props.student.offSix once that is added to the data base, false for now
-            checkedOffLunch: false,         //props.student.offLunch once that is added to the data base, false for now
+            checkedASB: false,              // props.student.hasASB (or whatever you want to name it Saim) once that is added to the data base, false for now
+            checkedOffSix: false,           // props.student.offSix once that is added to the data base, false for now
+            checkedOffLunch: false,         // props.student.offLunch once that is added to the data base, false for now
 
         }
 
