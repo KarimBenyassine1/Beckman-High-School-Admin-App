@@ -1,9 +1,10 @@
 .verifycard{
     position:relative;
-    left: 14vw;
-    top: 35px;
+    left: 150px;
+    top: 35px; 
     width: 70vw;
     height: 1310px;
+    
 }
 .backgroundDash{
     height: 1470px;
@@ -21,7 +22,7 @@
 
 .text{
     position: relative;
-    left: 760px;
+    left: 58vw;
     width: 200px;
 }
 
