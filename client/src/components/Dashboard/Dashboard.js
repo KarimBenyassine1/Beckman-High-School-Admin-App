@@ -120,7 +120,7 @@ class Dashboard extends Component {
                         <Card className="pending-card">
                             <CardTitle title={this.state.pendingAccounts.length} subtitle="Pending Accounts" />
                             <TextField id="standard-basic" className="filter" value={this.state.filter} label="Filter by Name or Short ID" name="filter" onChange={this.handleChange} />
-                            <IconButton onClick={() => window.location.reload(false)} className="refresh" > <RefreshIcon color="primary" /> </IconButton>
+                            <IconButton onClick={() => window.location.reload(false)} className="refresh" > <RefreshIcon color="primary" /></IconButton>
                             <TableContainer style={{ paddingTop: '30px' }}>
                                 <Table >
                                     <TableHead>

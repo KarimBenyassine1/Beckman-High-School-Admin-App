@@ -21,13 +21,13 @@
 
 .filter{
     position: relative;
-    width: 14.5vw;
-    left: 54vw;
+    width: 200px;
+    left: 58vw;
 }
 
 .refresh{
     position: relative; 
-    left: 51.5vw;
+    left: 56vw;
     top: -3vw;
 }
 
