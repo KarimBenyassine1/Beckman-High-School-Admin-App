@@ -19,10 +19,15 @@
     bottom:5px
 }
 
-.text{
+.searching{
     position: relative;
-    left: 760px;
-    width: 200px;
+    width: 14.5vw;
+    left: 54vw;
+}
+
+.refresh{
+    right: 100vw;
+    top: 50vw;
 }
 
 .modal{

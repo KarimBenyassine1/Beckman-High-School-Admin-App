@@ -37,6 +37,7 @@ class VerifiedStudents extends React.Component {
         }
 
         this.handleChangePage = this.handleChangePage.bind(this);
+        this.updateSearch = this.updateSearch.bind(this);
 
     }
 
@@ -82,20 +83,19 @@ class VerifiedStudents extends React.Component {
 
     renderDash() {
         let filteredStudents = this.state.students.filter(
-            (student) => {
-                return student.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
-                    student.shortId.indexOf(this.state.search) !== -1;
-            }
+            (student) => 
+                student.name.toLowerCase().includes(this.state.search.toLowerCase()) ||
+                student.shortId.includes(this.state.search)
         );
 
 
         return (
             <div className="backgroundDash">
                 <Menu />
-                <Sidebar />
+                <Sidebar />ß
                 <Card className="verifycard">
                     <p className='p'>Verified Students <span> <Button onClick={() => window.location.reload(false)} color="primary" style={{ position: "relative", left: "637px" }}><RefreshIcon color="primary" />Refresh</Button> </span> </p>
-                    <TextField id="standard-basic" label="Search Name or Short ID" value={this.state.search} onChange={this.updateSearch.bind(this)} className="text" />
+                    <TextField id="standard-basic" label="Filter for Name or Short ID" value={this.state.search} onChange={this.updateSearch} className="searching" />
                     <TableContainer style={{ paddingTop: '30px' }}>
                         <Table aria-label="simple table">
                             <TableHead>
@@ -140,7 +140,6 @@ class VerifiedStudents extends React.Component {
                                             </div>
                                         </Modal>
                                     </TableRow>
-
                                 ))}
                             </TableBody>
                         </Table>
