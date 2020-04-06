@@ -109,7 +109,7 @@ class VerifiedStudents extends React.Component {
                         </Table>
                     </TableContainer>
                     <TablePagination
-                        style={{ position: 'relative', right: "810px" }}
+                        style={{ position: 'relative', right: "80%" }}
                         count={filteredStudents.length}
                         rowsPerPage={15}
                         page={this.state.page}
