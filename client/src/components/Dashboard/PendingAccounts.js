@@ -15,7 +15,7 @@ import './Dashboard.css'
 
 function handleVerify(_this) {
     console.log("verify");
-    
+
 }
 
 function handleDecline() {

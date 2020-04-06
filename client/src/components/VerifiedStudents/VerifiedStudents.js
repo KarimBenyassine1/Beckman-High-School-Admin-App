@@ -14,12 +14,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import EditIcon from '@material-ui/icons/Edit';
 import TablePagination from '@material-ui/core/TablePagination';
-import Modal from '@material-ui/core/Modal';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
+import EditModal from './EditModal.js';
 import axios from 'axios';
 
 
@@ -27,17 +22,14 @@ import axios from 'axios';
 class VerifiedStudents extends React.Component {
     constructor(props) {
         super(props)
-
         this.state = {
             students: [],
             search: '',
             page: 0,
-            isOpen: false,
-            value: false, // placeholder for the modal
         }
 
         this.handleChangePage = this.handleChangePage.bind(this);
-        this.updateSearch = this.updateSearch.bind(this);
+        this.showEditModal = this.showEditModal.bind(this);
 
     }
 
@@ -65,19 +57,12 @@ class VerifiedStudents extends React.Component {
         this.setState({ page: newPage })
     }
 
-    editButtonTest() {
-        console.log("Yeetus");
-    }
-
-    handleOpen = () => {
-        this.setState(
-            { isOpen: true }
-        )
-    }
-
-    handleClose = () => {
-        this.setState(
-            { isOpen: false }
+    // called when people click the edit button
+    // this is the problem right now, nothing is rendering even though the method is being called
+    showEditModal = (e, student) => {
+        console.log(student.name);              // console log happens
+        return (
+            <EditModal student={student} isOpen={true}/>      // this doesn't happen
         )
     }
 
@@ -87,15 +72,13 @@ class VerifiedStudents extends React.Component {
                 student.name.toLowerCase().includes(this.state.search.toLowerCase()) ||
                 student.shortId.includes(this.state.search)
         );
-
-
         return (
             <div className="backgroundDash">
                 <Menu />
-                <Sidebar />ß
+                <Sidebar />
                 <Card className="verifycard">
-                    <p className='p'>Verified Students <span> <Button onClick={() => window.location.reload(false)} color="primary" style={{ position: "relative", left: "637px" }}><RefreshIcon color="primary" />Refresh</Button> </span> </p>
-                    <TextField id="standard-basic" label="Filter for Name or Short ID" value={this.state.search} onChange={this.updateSearch} className="searching" />
+                    <p className='p'>Verified Students <span> <Button onClick={() => window.location.reload(false)} color="primary" style={{ position: "relative", left: "62.8%" }}><RefreshIcon color="primary" />Refresh</Button> </span> </p>
+                    <TextField id="standard-basic" label="Filter by Name or Short ID" key="5" value={this.state.search} onChange={this.updateSearch.bind(this)} className="text" />
                     <TableContainer style={{ paddingTop: '30px' }}>
                         <Table aria-label="simple table">
                             <TableHead>
@@ -116,29 +99,10 @@ class VerifiedStudents extends React.Component {
                                         <TableCell align="right">{student.shortId}</TableCell>
                                         <TableCell align="right">{student.longId}</TableCell>
                                         <TableCell align="right">{student.grade}</TableCell>
-                                        <TableCell align="right"><Button style={{ position: 'relative', left: '15px' }} onClick={this.editButtonTest} ><EditIcon color="primary" /></Button></TableCell>
-                                        <Modal open={this.state.isOpen} onClose={this.handleClose}>
-                                            <div className="modal">
-                                                <h2>Edit Student Name</h2>
-                                                <FormControl component="fieldset">
-                                                    <FormLabel component="legend">ASB</FormLabel>
-                                                    <RadioGroup name="ASB" value={this.state.value} onChange={this.handleChangeRadio}>
-                                                        <FormControlLabel value="yes" control={<Radio />} label="Yes" />
-                                                        <FormControlLabel value="no" control={<Radio />} label="No" />
-                                                    </RadioGroup>
-                                                    <FormLabel component="legend">Off Sixth Period</FormLabel>
-                                                    <RadioGroup name="offsix" value={this.state.value} onChange={this.handleChangeRadio}>
-                                                        <FormControlLabel value="yes" control={<Radio />} label="Yes" />
-                                                        <FormControlLabel value="no" control={<Radio />} label="No" />
-                                                    </RadioGroup>
-                                                    <FormLabel component="legend">Off Lunch</FormLabel>
-                                                    <RadioGroup name="offlunch" value={this.state.value} onChange={this.handleChangeRadio}>
-                                                        <FormControlLabel value="yes" control={<Radio />} label="Yes" />
-                                                        <FormControlLabel value="no" control={<Radio />} label="No" />
-                                                    </RadioGroup>
-                                                </FormControl>
-                                            </div>
-                                        </Modal>
+                                        <TableCell align="right">
+                                            {/* Here is the edit button and the call to showEditModal */}
+                                            <Button style={{ position: 'relative', left: '15px' }} onClick={(e) => this.showEditModal(e, student)}><EditIcon color="primary" /></Button>
+                                        </TableCell>
                                     </TableRow>
                                 ))}
                             </TableBody>
@@ -151,7 +115,6 @@ class VerifiedStudents extends React.Component {
                         page={this.state.page}
                         component="div"
                         onChangePage={this.handleChangePage} />
-
                 </Card>
             </div>
         )

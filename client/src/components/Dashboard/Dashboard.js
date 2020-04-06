@@ -6,6 +6,7 @@ import Menu from "../Menu"
 import Sidebar from "../SideBar/SideBar";
 import { Card, CardTitle } from 'material-ui/Card';
 import TextField from '@material-ui/core/TextField'
+import Button from '@material-ui/core/Button';
 import TableBody from '@material-ui/core/TableBody';
 import TableContainer from '@material-ui/core/TableContainer';
 import Table from '@material-ui/core/Table';
@@ -120,7 +121,7 @@ class Dashboard extends Component {
                         <Card className="pending-card">
                             <CardTitle title={this.state.pendingAccounts.length} subtitle="Pending Accounts" />
                             <TextField id="standard-basic" className="filter" value={this.state.filter} label="Filter by Name or Short ID" name="filter" onChange={this.handleChange} />
-                            <IconButton onClick={() => window.location.reload(false)} className="refresh" > <RefreshIcon color="primary" /> </IconButton>
+                            <Button onClick={() => window.location.reload(false)} color="primary" className="refresh" ><RefreshIcon color="primary" />REFRESH</Button>
                             <TableContainer style={{ paddingTop: '30px' }}>
                                 <Table >
                                     <TableHead>

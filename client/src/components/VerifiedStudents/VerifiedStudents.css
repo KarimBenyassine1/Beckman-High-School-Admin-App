@@ -1,9 +1,10 @@
 .verifycard{
     position:relative;
-    left: 14vw;
-    top: 35px;
+    left: 112px;
+    top: 35px; 
     width: 70vw;
     height: 1310px;
+    
 }
 .backgroundDash{
     height: 1470px;
@@ -19,21 +20,17 @@
     bottom:5px
 }
 
-.searching{
+.text{
     position: relative;
-    width: 14.5vw;
-    left: 54vw;
+    left: 75%;
+    width: 200px;
 }
 
-.refresh{
-    right: 100vw;
-    top: 50vw;
-}
-
+/*
 .modal{
     position: relative;
-    /* align-items: center;
-    justify-content: center; */
+    align-items: center;
+    justify-content: center;
     background-color: #e3e3e3;
     left: 50px;
     width: 400px;
@@ -41,3 +38,4 @@
     border-color: #000000;
     border-width: 2px;
 }
+*/
