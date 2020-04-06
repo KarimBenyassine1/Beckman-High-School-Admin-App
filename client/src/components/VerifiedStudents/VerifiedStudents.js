@@ -48,8 +48,7 @@ class VerifiedStudents extends React.Component {
 
     updateSearch = (event) => {
         this.setState({
-            search: event.target.value.substr(0,
-                40)
+            search: event.target.value.substr(0, 40)
         })
     }
 
