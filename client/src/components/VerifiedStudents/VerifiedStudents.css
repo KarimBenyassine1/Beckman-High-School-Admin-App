@@ -1,6 +1,6 @@
 .verifycard{
     position:relative;
-    left: 150px;
+    left: 112px;
     top: 35px; 
     width: 70vw;
     height: 1310px;
@@ -22,7 +22,7 @@
 
 .text{
     position: relative;
-    left: 58vw;
+    left: 75%;
     width: 200px;
 }
 

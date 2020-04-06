@@ -5,7 +5,6 @@ import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 import TextField from '@material-ui/core/TextField';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
-import Alerts from "../Login/alert";
 import axios from 'axios';
 
 
@@ -60,9 +59,6 @@ class Login extends React.Component {
 
     event.preventDefault();
   }
-
-
-
 
 
   emptyOrNot = () => {

@@ -67,20 +67,17 @@ class VerifiedStudents extends React.Component {
 
     renderDash() {
         let filteredStudents = this.state.students.filter(
-            (student) => {
-                return student.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 ||
-                    student.shortId.indexOf(this.state.search) !== -1;
-            }
+            (student) => 
+                student.name.toLowerCase().includes(this.state.search.toLowerCase()) ||
+                student.shortId.includes(this.state.search)
         );
-
-
         return (
             <div className="backgroundDash">
                 <Menu />
                 <Sidebar />
                 <Card className="verifycard">
-                    <p className='p'>Verified Students <span> <Button onClick={() => window.location.reload(false)} color="primary" style={{ position: "relative", left: "51.5vw" }}><RefreshIcon color="primary" />Refresh</Button> </span> </p>
-                    <TextField id="standard-basic" label="Filter by Name or Short ID" value={this.state.search} onChange={this.updateSearch.bind(this)} className="text" />
+                    <p className='p'>Verified Students <span> <Button onClick={() => window.location.reload(false)} color="primary" style={{ position: "relative", left: "62.8%" }}><RefreshIcon color="primary" />Refresh</Button> </span> </p>
+                    <TextField id="standard-basic" label="Filter by Name or Short ID" key="5" value={this.state.search} onChange={this.updateSearch.bind(this)} className="text" />
                     <TableContainer style={{ paddingTop: '30px' }}>
                         <Table aria-label="simple table">
                             <TableHead>
@@ -111,7 +108,7 @@ class VerifiedStudents extends React.Component {
                         </Table>
                     </TableContainer>
                     <TablePagination
-                        style={{ position: 'relative', right: "810px" }}
+                        style={{ position: 'relative', right: "80%" }}
                         count={filteredStudents.length}
                         rowsPerPage={15}
                         page={this.state.page}

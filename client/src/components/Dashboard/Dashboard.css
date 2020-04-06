@@ -22,12 +22,12 @@
 .filter{
     position: relative;
     width: 200px;
-    left: 58vw;
+    left: 75%;
 }
 
 .refresh{
     position: relative; 
-    left: 56vw;
+    left: 64.5%;
     top: -3vw;
 }
 
