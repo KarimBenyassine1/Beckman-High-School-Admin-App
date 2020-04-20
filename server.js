@@ -99,15 +99,12 @@ app.post("/reset-password", function(req,res){
 
 
         if (index) {
-            console.log("Changed password successful");
+            return res.status(200).send('true');
             //do return here because more than one res.whatever() started giving me errors even though we do that later in the code
         } else {
-            console.log("Changed password not successful");
+            res.status(200).send('false');
         }
     })
-
-    res.sendStatus(200);
-
 });
 
 

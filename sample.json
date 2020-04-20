@@ -1,16 +1,1 @@
-[
-  {
-    "email": "karimhassmallpeepee@gmail.com",
-    "user": "karimsmal",
-    "password": "1234567",
-    "confirmpassword": "1234567",
-    "school": "Arnold O. Beckman High School"
-  },
-  {
-    "email": "poop@gmail.com",
-    "user": "karimsmal",
-    "password": "ayayaya",
-    "confirmpassword": "1234567",
-    "school": "Fake High School"
-  }
-]
+[{"email":"karimhassmallpeepee@gmail.com","user":"karimsmal","password":"1234567","confirmpassword":"1234567","school":"Arnold O. Beckman High School"},{"email":"poop@gmail.com","user":"karimsmal","password":"testtest","confirmpassword":"1234567","school":"Fake High School"}]

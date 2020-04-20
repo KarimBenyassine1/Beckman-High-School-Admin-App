@@ -6,6 +6,10 @@ import Box from '@material-ui/core/Box';
 import TextField from '@material-ui/core/TextField';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import axios from 'axios';
+import Alert from '@material-ui/lab/Alert';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
+import Collapse from '@material-ui/core/Collapse';
 
 
 
@@ -19,18 +23,30 @@ class Login extends React.Component {
       loginStatus: 'IS_LOGGED',
       clickedSubmit: false,
       errors: false,
-      status: false, 
+      status: null,
+      open: false 
     }
 
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.closingAlert=this.closingAlert.bind(this);
   }
 
 
   handleChange = (event) => {
     this.setState({ [event.target.name]: event.target.value });
   }
+
+  closingAlert = (event)=>{
+    this.setState(
+      {
+        open: false,
+        status: null
+      }
+    )
+  }
+
 
   handleSubmit = (event) => {
     const { username, password } = this.state;
@@ -51,8 +67,8 @@ class Login extends React.Component {
         if (this.state.status) {
           window.location.href = "/dashboard"
           console.log("successful login");
-        } else {
-          alert("Incorrect Username or Password!")
+        }else{
+          this.setState({open: true})
         }
       })
       .catch(err => console.log(err));
@@ -72,6 +88,26 @@ class Login extends React.Component {
 
   renderLogin() {
     return (
+      <div>
+        {!this.state.status &&
+        <Collapse in={this.state.open}>
+          <Alert 
+          severity="error"
+          action={
+            <IconButton
+              aria-label="close"
+              color="inherit"
+              size="small"
+              onClick={this.closingAlert}
+            >
+              <CloseIcon fontSize="inherit" />
+            </IconButton>
+        }
+        >
+        Incorrect Username or Password
+      </Alert>
+      </Collapse>
+        }
       <div className="background">
         <Box
           boxShadow={3}
@@ -104,6 +140,7 @@ class Login extends React.Component {
             </ValidatorForm>
           </Card>
         </Box>
+      </div>
       </div>
     )
   }
